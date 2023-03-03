@@ -1,0 +1,86 @@
+.anchorpane {
+    -fx-region-background: #383C4A;
+}
+.label {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-text-fill: #E3E9FC;
+    -fx-font-size: 14px;
+}
+#loginTitle {
+    -fx-font-size: 20px;
+    -fx-padding: 20px 5px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+.loginField {
+    /* -fx-border-style: solid; */
+    -fx-background-color: #5B6178;
+    -fx-background-radius: 2;
+    -fx-max-width: 250px;
+    -fx-alignment: center;
+    -fx-padding: 0px;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-padding: 3px;
+}
+
+.loginField:hover {
+    -fx-background-color: #515E91;
+}
+
+.loginField:focused {
+    -fx-background-color: #475380;
+}
+
+.loginFieldLabel {
+    -fx-font-size: 16px;
+}
+
+.loginMainVbox {
+    -fx-spacing: 10px;
+}
+
+.loginFieldVbox {
+    -fx-spacing: 5px;
+    -fx-pref-height: 100;
+    -fx-alignment: center;
+}
+
+.loginError {
+    -fx-text-fill: red;
+    -fx-font-style: italic;
+}
+
+#loginFooter {
+    -fx-alignment: center;
+    -fx-spacing: 30px;
+}
+
+#loginBtn {
+    -fx-background-color: #4D5C99;
+    -fx-padding: 12px 30px;
+    -fx-text-fill: #E3E9FC;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: innershadow(three-pass-box , #8099FF, 0, 0, 0, -2);
+}
+
+#loginBtn:hover {
+    -fx-background-color:#404D80;
+    -fx-effect: innershadow(three-pass-box , #738AE6, 0, 0, 0, -2);
+}
+
+#loginBtn:pressed {
+    -fx-background-color:#262E4D;
+    -fx-effect: innershadow(three-pass-box , #596BB3, 0, 0, 0, -2);
+}
+
+#loginFooterSetting {
+    -fx-spacing: 30px;
+    -fx-alignment: center;
+}
+
+.loginFooterItems {
+    -fx-spacing: 12px;
+}
+
