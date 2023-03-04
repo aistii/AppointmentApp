@@ -1,24 +1,25 @@
+/* Global Styles for Controls/Containers */
 .anchorpane {
-    -fx-region-background: #383C4A;
+    -fx-background-color: #383C4A;
 }
 .label {
     -fx-font-family: "Arial", sans-serif;
     -fx-text-fill: #E3E9FC;
     -fx-font-size: 14px;
 }
-#loginTitle {
+
+/* LOGIN SCREEN */
+.title {
     -fx-font-size: 20px;
     -fx-padding: 20px 5px;
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
 .loginField {
-    /* -fx-border-style: solid; */
     -fx-background-color: #5B6178;
     -fx-background-radius: 2;
     -fx-max-width: 250px;
     -fx-alignment: center;
-    -fx-padding: 0px;
     -fx-font-size: 16px;
     -fx-text-fill: white;
     -fx-padding: 3px;
@@ -51,6 +52,10 @@
     -fx-font-style: italic;
 }
 
+/*
+Footer includes login button, language setting, 
+and time zone display
+*/
 #loginFooter {
     -fx-alignment: center;
     -fx-spacing: 30px;
@@ -72,7 +77,7 @@
 
 #loginBtn:pressed {
     -fx-background-color:#262E4D;
-    -fx-effect: innershadow(three-pass-box , #596BB3, 0, 0, 0, -2);
+    -fx-effect: innershadow(three-pass-box , #596BB3, 0, 0, 0, 0);
 }
 
 #loginFooterSetting {
@@ -84,3 +89,103 @@
     -fx-spacing: 12px;
 }
 
+/* MAIN MENU */
+/* These are generic points for the main menu, which includes the customer and appointment view.
+   The nature of Appointment View uses Tab Pane to navigate but adopts the same layout as Customer view. */
+#sidebar {
+    -fx-background-color: #4D5C99;
+    -fx-effect: dropshadow(gaussian  , #404D80, 0, 0, 0, -2);
+}
+
+.sidebarButtonC {
+   /*-fx-spacing: 10px;*/
+}
+
+.sidebarBtn {
+    -fx-background-color: #4D5C99;
+    -fx-padding: 20px 30px;
+    -fx-text-fill: #E3E9FC;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+}
+
+.sidebarBtn:hover {
+    -fx-background-color: #404D80;
+}
+
+.table-view{
+    -fx-background-color: linear-gradient(to top, rgba(77,92,153,.25), rgba(64,77,128,.33));
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #4D5C99;
+    -fx-padding: 5px;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .corner {
+    -fx-background-color: black;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.viewHeader {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+}
+
+.btnControls {
+    -fx-spacing:10px;
+    -fx-alignment: center;
+}
+
+.btnControls .button {
+    -fx-background-color: #4D5C99;
+    -fx-padding: 12px 30px;
+    -fx-text-fill: #E3E9FC;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-effect: innershadow(three-pass-box , #8099FF, 0, 0, 0, -2);
+}
+
+.btnControls .button:hover {
+    -fx-background-color:#404D80;
+    -fx-effect: innershadow(three-pass-box , #738AE6, 0, 0, 0, -2);
+}
+
+.btnControls .button:pressed {
+    -fx-background-color:#262E4D;
+    -fx-effect: innershadow(three-pass-box , #596BB3, 0, 0, 0, 0);
+}
+.tab-pane {
+    -fx-spacing: 5px;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab  {
+    -fx-background-color: #4D5C99;
+    -fx-font-size: 14px;
+    -fx-padding: 3px 10px;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #3d4876;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill:#E3E9FC;
+}

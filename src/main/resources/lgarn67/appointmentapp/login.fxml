@@ -8,41 +8,41 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: #383C4A;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lgarn67.appointmentapp.controller.login_ctlr">
    <children>
       <VBox alignment="CENTER_LEFT" prefHeight="500.0" prefWidth="300.0" styleClass="loginVbox">
          <children>
-            <Label fx:id="loginTitle" prefHeight="27.0" prefWidth="300.0" text="Appointment Scheduler" />
+            <Label fx:id="loginTitle" prefHeight="27.0" prefWidth="300.0" styleClass="title" text="Appointment Scheduler" />
             <VBox prefHeight="200.0" prefWidth="100.0" styleClass="loginFieldVbox">
                <children>
-                  <Label styleClass="loginFieldLabel" text="Username" />
+                  <Label fx:id="userNameTitle" styleClass="loginFieldLabel" text="Username" />
                   <TextField fx:id="uNameField" styleClass="loginField" />
                   <Label fx:id="uNameError" styleClass="loginError" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" styleClass="loginFieldVbox">
                <children>
-                  <Label styleClass="loginFieldLabel" text="Password" />
+                  <Label fx:id="passWordTitle" styleClass="loginFieldLabel" text="Password" />
                   <TextField fx:id="pwdField" styleClass="loginField" />
                   <Label fx:id="pWordError" styleClass="loginError" />
                </children>
             </VBox>
             <VBox id="loginFooter" fx:id="loginFooter" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="loginBtn" mnemonicParsing="false" text="Log In" />
+                  <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#clickLogin" text="Log In" />
                   <HBox fx:id="loginFooterSetting" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="loginFooterItems">
                            <children>
-                              <Label styleClass="label.loginFooterItemsloginFooterItems.label" text="Language" />
+                              <Label fx:id="languageHeader" styleClass="label.loginFooterItemsloginFooterItems.label" text="Language" />
                               <ComboBox fx:id="languageField" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="loginFooterItems">
                            <children>
-                              <Label styleClass="label.loginFooterItems" text="Time Zone" />
-                              <Label fx:id="timeZoneLabel" text="TimeZoneLabel" />
+                              <Label fx:id="timeZoneHeader" styleClass="label.loginFooterItems" text="Time Zone" />
+                              <Label fx:id="timeZoneLabel" />
                            </children>
                         </VBox>
                      </children>
