@@ -15,7 +15,7 @@
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
-.loginField {
+.largeTextField {
     -fx-background-color: #5B6178;
     -fx-background-radius: 2;
     -fx-max-width: 250px;
@@ -23,17 +23,17 @@
     -fx-font-size: 16px;
     -fx-text-fill: white;
     -fx-padding: 3px;
-}
+} /* largeTextField also applies to the modify/add forms */
 
-.loginField:hover {
+.largeTextField:hover {
     -fx-background-color: #515E91;
 }
 
-.loginField:focused {
+.largeTextField:focused {
     -fx-background-color: #475380;
 }
 
-.loginFieldLabel {
+.largeFieldLabel {
     -fx-font-size: 16px;
 }
 
@@ -48,8 +48,9 @@
 }
 
 .loginError {
-    -fx-text-fill: red;
+    -fx-text-fill: #EF596F;
     -fx-font-style: italic;
+    -fx-font-size: 12px;
 }
 
 /*
@@ -133,7 +134,49 @@ and time zone display
 .table-view .column-header {
     -fx-background-color: transparent;
 }
+.table-cell { 
+    -fx-text-fill: #E3E9FC;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+}
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-cell-size: 40px;
+    -fx-padding: 0px;
+}
 
+.table-row-cell:odd {
+    -fx-background-color: rgba(227,233,252,0.05)
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(0,0,0,0.25);
+    -fx-font-weight: bold;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:horizontal {
+    -fx-background-color: rgba(0,0,0,0.25);
+}
+
+.table-view .virtual-flow .scroll-bar:vertical .thumb,
+.table-view .virtual-flow .scroll-bar:horizontal .thumb{
+    -fx-background-insets: 3, 0;
+    -fx-background-color: #E3E9FC;
+}
+
+.table-view .virtual-flow .corner {
+    -fx-background-color: transparent;
+}
+
+.table-view .virtual-flow .increment-button:pressed,
+.table-view .virtual-flow .increment-button:hover,
+.table-view .virtual-flow .decrement-button:pressed,
+.table-view .virtual-flow .decrement-button:hover, {
+    -fx-background-color: transparent;
+}
+
+/* ViewHeader is the title of the screen, such as customers, appointments */
 .viewHeader {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
@@ -188,4 +231,104 @@ and time zone display
 
 .tab-pane .tab .tab-label {
     -fx-text-fill:#E3E9FC;
+}
+
+/* Add/Modify Form for Customer */
+.vBoxCol {
+    -fx-spacing: 15px;
+    -fx-padding: 10px 20px;
+}
+
+.formItem {
+    -fx-spacing: 10px;
+}
+
+.combo-box {
+    -fx-background-color: #5B6178;
+    -fx-background-radius: 2;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-text-fill: #E3E9FC;
+    -fx-max-width: 250px;
+}
+
+.combo-box-popup .list-cell{
+    -fx-background-color: #5B6178;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #4B5063;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #E3E9FC;
+}
+
+.combo-box-base .arrow-button {
+    -fx-background-color: rgba(0,0,0,.15);
+}
+
+.combo-box-base .arrow-button:hover {
+    -fx-background-color: rgba(0,0,0,.25);
+}
+
+.combo-box-base .arrow-button .arrow {
+    -fx-background-color: #E3E9FC;
+}
+
+.combo-box-popup .virtual-flow {
+    -fx-background-color: #4B5063;
+}
+
+.combo-box-popup .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-insets: 3, 0;
+    -fx-background-color: #E3E9FC;
+}
+
+.formBtnSave {
+    -fx-background-color: #388049;
+    -fx-padding: 12px 30px;
+    -fx-text-fill: #E3E9FC;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: innershadow(three-pass-box , rgba(255,255,255,0.3), 0, 0, 0, -2);
+    -fx-max-width: 200px;
+}
+
+.formBtnSave:hover {
+    -fx-background-color: #2D663A;
+    -fx-effect: innershadow(three-pass-box , rgba(255,255,255,0.5), 0, 0, 0, -2);
+}
+
+.formBtnSave:pressed {
+    -fx-background-color: #16331D;
+    -fx-effect: innershadow(three-pass-box , rgba(255,255,255,0.75), 0, 0, 0, 0);
+}
+
+.formBtnCancel {
+    -fx-background-color: #4D5C99;
+    -fx-padding: 12px 30px;
+    -fx-text-fill: #E3E9FC;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: innershadow(three-pass-box , #8099FF, 0, 0, 0, -2);
+    -fx-max-width: 200px;
+    
+}
+
+.formBtnCancel:hover {
+    -fx-background-color:#404D80;
+    -fx-effect: innershadow(three-pass-box , #738AE6, 0, 0, 0, -2);
+}
+
+
+.formBtnCancel:pressed {
+    -fx-background-color:#262E4D;
+    -fx-effect: innershadow(three-pass-box , #596BB3, 0, 0, 0, 0);
+}
+
+.errorMsg {
+    -fx-text-fill: #EF596F;
+    -fx-font-style: italic;
+    -fx-font-size: 12px;
 }

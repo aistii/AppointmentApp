@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="750.0" prefWidth="600.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.add_cust_ctlr">
+   <children>
+      <Label layoutX="231.0" layoutY="36.0" styleClass="viewHeader" text="Add Customer" />
+      <HBox layoutY="90.0" prefHeight="578.0" prefWidth="600.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="300.0" spacing="20.0" styleClass="vBoxCol">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Customer ID" />
+                        <TextField fx:id="IdField" disable="true" styleClass="largeTextField" text="automatically set" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Name" />
+                        <TextField fx:id="NameField" styleClass="largeTextField" />
+                        <Label fx:id="nameErr" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Address" />
+                        <TextField fx:id="AddrField" styleClass="largeTextField" />
+                        <Label fx:id="AddrErr" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Postal Code" />
+                        <TextField fx:id="PostField" styleClass="largeTextField" />
+                        <Label fx:id="PostErr" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Phone Number" />
+                        <TextField fx:id="PhoneField" styleClass="largeTextField" />
+                        <Label fx:id="PhoneErr" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="300.0" styleClass="vBoxCol">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="260.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Country" />
+                        <ComboBox fx:id="CountryCombo" onAction="#onCountrySelected" prefWidth="150.0" />
+                        <Label fx:id="CtryErr" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="100.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="First-Level Division" />
+                        <ComboBox fx:id="FLDCombo" prefWidth="150.0" />
+                        <Label fx:id="FLDErr" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="SaveBtn" mnemonicParsing="false" onAction="#ClickSaveCust" styleClass="formBtnSave" text="Add" />
+                        <Button fx:id="CancelBtn" mnemonicParsing="false" onAction="#ClickCancel" styleClass="formBtnCancel" text="Cancel" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

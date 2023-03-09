@@ -15,36 +15,36 @@
          <children>
             <VBox alignment="CENTER" layoutY="168.0" prefHeight="363.0" prefWidth="175.0" styleClass="sidebarButtonC">
                <children>
-                  <Button mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Customer">
+                  <Button fx:id="SBCustomerBtn" mnemonicParsing="false" onAction="#clickCustBtn" prefWidth="175.0" styleClass="sidebarBtn" text="Customer">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Appointments" />
-                  <Button mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Reports" />
-                  <Button mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Exit" />
+                  <Button fx:id="SBApptBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Appointments" />
+                  <Button fx:id="SBReportBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Reports" />
+                  <Button fx:id="SBExitBtn" mnemonicParsing="false" onAction="#clickSBEXit" prefWidth="175.0" styleClass="sidebarBtn" text="Exit" />
                </children>
             </VBox>
             <Label layoutX="10.0" layoutY="78.0" prefHeight="89.0" prefWidth="160.0" styleClass="title" text="Appointment Scheduler" textAlignment="CENTER" wrapText="true" />
          </children>
       </AnchorPane>
-      <TableView layoutX="187.0" layoutY="159.0" prefHeight="525.0" prefWidth="1300.0">
+      <TableView fx:id="CustTable" layoutX="187.0" layoutY="159.0" prefHeight="525.0" prefWidth="1300.0">
         <columns>
-          <TableColumn prefWidth="70.0" text="ID #" />
-          <TableColumn prefWidth="207.3333740234375" text="Name" />
-            <TableColumn prefWidth="211.99993896484375" text="Address" />
-            <TableColumn prefWidth="129.9998779296875" text="Zip Code" />
-            <TableColumn prefWidth="124.666748046875" text="Phone Number" />
-            <TableColumn prefWidth="172.0" text="Country" />
-            <TableColumn prefWidth="182.6666259765625" text="First-Level Division" />
+          <TableColumn fx:id="CustIdCol" prefWidth="100.0" text="ID #" />
+          <TableColumn fx:id="CustNameCol" prefWidth="200.0" text="Name" />
+            <TableColumn fx:id="CustPhoCol" prefWidth="150.0" text="Phone Number" />
+            <TableColumn fx:id="CustAddrCol" prefWidth="250.0" text="Address" />
+            <TableColumn fx:id="CustZipCol" prefWidth="150.0" text="Zip Code" />
+            <TableColumn fx:id="CustCtryCol" prefWidth="200.0" text="Country" />
+            <TableColumn fx:id="CustFLDCol" prefWidth="182.6666259765625" text="First-Level Division" />
         </columns>
       </TableView>
       <Label layoutX="187.0" layoutY="111.0" styleClass="viewHeader" text="Customer View" />
       <HBox layoutX="932.0" layoutY="86.0" prefHeight="60.0" prefWidth="333.0" styleClass="btnControls">
          <children>
-            <Button mnemonicParsing="false" text="Add" />
-            <Button mnemonicParsing="false" text="Update" />
-            <Button mnemonicParsing="false" text="Remove" />
+            <Button fx:id="CustAddBtn" mnemonicParsing="false" onAction="#ClickAddCust" text="Add" />
+            <Button fx:id="CustEditBtn" mnemonicParsing="false" onAction="#ClickEditCust" text="Edit" />
+            <Button fx:id="CustRemBtn" mnemonicParsing="false" onAction="#ClickDelCust" text="Remove" />
          </children>
       </HBox>
    </children>
