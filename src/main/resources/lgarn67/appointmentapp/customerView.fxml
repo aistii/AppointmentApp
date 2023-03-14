@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="700.0" maxWidth="1500.0" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.customer_ctlr">
+<AnchorPane maxHeight="700.0" maxWidth="1500.0" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.customer_ctlr">
    <children>
       <AnchorPane fx:id="sidebar" prefHeight="700.0" prefWidth="132.0">
          <children>
@@ -20,7 +20,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="SBApptBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Appointments" />
+                  <Button fx:id="SBApptBtn" mnemonicParsing="false" onAction="#clickApptBtn" prefWidth="175.0" styleClass="sidebarBtn" text="Appointments" />
                   <Button fx:id="SBReportBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Reports" />
                   <Button fx:id="SBExitBtn" mnemonicParsing="false" onAction="#clickSBEXit" prefWidth="175.0" styleClass="sidebarBtn" text="Exit" />
                </children>
@@ -42,9 +42,9 @@
       <Label layoutX="187.0" layoutY="111.0" styleClass="viewHeader" text="Customer View" />
       <HBox layoutX="932.0" layoutY="86.0" prefHeight="60.0" prefWidth="333.0" styleClass="btnControls">
          <children>
-            <Button fx:id="CustAddBtn" mnemonicParsing="false" onAction="#ClickAddCust" text="Add" />
-            <Button fx:id="CustEditBtn" mnemonicParsing="false" onAction="#ClickEditCust" text="Edit" />
-            <Button fx:id="CustRemBtn" mnemonicParsing="false" onAction="#ClickDelCust" text="Remove" />
+            <Button fx:id="CustAddBtn" mnemonicParsing="false" onAction="#clickAddCust" text="Add" />
+            <Button fx:id="CustEditBtn" mnemonicParsing="false" onAction="#clickEditCust" text="Edit" />
+            <Button fx:id="CustRemBtn" mnemonicParsing="false" onAction="#clickDelCust" text="Remove" />
          </children>
       </HBox>
    </children>

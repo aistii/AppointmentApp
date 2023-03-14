@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 import lgarn67.appointmentapp.Working;
@@ -23,22 +24,20 @@ public class login_ctlr implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //uNameError.setText(null);
-        //pWordError.setText(null);
+        ZoneId detectedZone = ZoneId.systemDefault();
+        timeZoneLabel.setText(detectedZone.toString());
         uNameField.setText(null);
         pwdField.setText(null);
     }
     Stage stage;
     Parent scene;
-    @FXML private ComboBox<?> languageField;
-    @FXML private static Label languageHeader;
     @FXML private static Button loginBtn;
     @FXML private static Label loginTitle;
     @FXML private Label pWordError;
     @FXML private static Label passWordTitle;
     @FXML private  TextField pwdField;
     @FXML private static Label timeZoneHeader;
-    @FXML private static Label timeZoneLabel;
+    @FXML private Label timeZoneLabel;
     @FXML private Label uNameError;
     @FXML private TextField uNameField;
     @FXML private static Label userNameTitle;
@@ -59,11 +58,14 @@ public class login_ctlr implements Initializable {
         } else {
             if (loginConnect.checkLogin(attemptUName, attemptPWord)) {
                 int fetchedUserId = loginConnect.fetchId(attemptUName, attemptPWord);
+                String fetchedUsername = loginConnect.fetchUsername(attemptUName, attemptPWord);
                 Working.setLoggedInId(fetchedUserId);// will pass to screen
+                Working.setLoggedInName(fetchedUsername);
+
                 //TODO
                 // Need to eventually implement the thing that holds user id in the duration of the app running
                 // in order to successfully show who modified the appointment or user last.
-                CustomerQuery.selectAll();
+                //CustomerQuery.selectAll();
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
                 stage.setScene(new Scene(scene));
@@ -77,5 +79,8 @@ public class login_ctlr implements Initializable {
         // Need to pass in the values typed into the fields to the loginConnect helper java file.
 
     }
+
+
+
 
 }

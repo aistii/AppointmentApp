@@ -11,42 +11,42 @@
 <AnchorPane prefHeight="750.0" prefWidth="600.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.add_cust_ctlr">
    <children>
       <Label layoutX="231.0" layoutY="36.0" styleClass="viewHeader" text="Add Customer" />
-      <HBox layoutY="90.0" prefHeight="578.0" prefWidth="600.0">
+      <HBox layoutY="90.0" prefHeight="650.0" prefWidth="600.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="300.0" spacing="20.0" styleClass="vBoxCol">
                <children>
-                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                  <VBox prefHeight="0.0" prefWidth="300.0" styleClass="formItem">
                      <children>
                         <Label styleClass="largeFieldLabel" text="Customer ID" />
                         <TextField fx:id="IdField" disable="true" styleClass="largeTextField" text="automatically set" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                  <VBox prefHeight="125.0" prefWidth="300.0" styleClass="formItem">
                      <children>
                         <Label styleClass="largeFieldLabel" text="Name" />
                         <TextField fx:id="NameField" styleClass="largeTextField" />
-                        <Label fx:id="nameErr" styleClass="errorMsg" />
+                        <Label fx:id="nameErr" alignment="BASELINE_LEFT" maxHeight="40.0" styleClass="errorMsg" wrapText="true" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                  <VBox prefHeight="125.0" prefWidth="300.0" styleClass="formItem">
                      <children>
                         <Label styleClass="largeFieldLabel" text="Address" />
                         <TextField fx:id="AddrField" styleClass="largeTextField" />
-                        <Label fx:id="AddrErr" styleClass="errorMsg" />
+                        <Label fx:id="AddrErr" alignment="BASELINE_LEFT" maxHeight="40.0" styleClass="errorMsg" wrapText="true" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                  <VBox prefHeight="125.0" prefWidth="300.0" styleClass="formItem">
                      <children>
                         <Label styleClass="largeFieldLabel" text="Postal Code" />
                         <TextField fx:id="PostField" styleClass="largeTextField" />
-                        <Label fx:id="PostErr" styleClass="errorMsg" />
+                        <Label fx:id="PostErr" alignment="BASELINE_LEFT" maxHeight="40.0" styleClass="errorMsg" wrapText="true" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                  <VBox prefHeight="125.0" prefWidth="300.0" styleClass="formItem">
                      <children>
                         <Label styleClass="largeFieldLabel" text="Phone Number" />
                         <TextField fx:id="PhoneField" styleClass="largeTextField" />
-                        <Label fx:id="PhoneErr" styleClass="errorMsg" />
+                        <Label fx:id="PhoneErr" alignment="BASELINE_LEFT" maxHeight="40.0" styleClass="errorMsg" wrapText="true" />
                      </children>
                   </VBox>
                </children>
@@ -57,14 +57,14 @@
                      <children>
                         <Label styleClass="largeFieldLabel" text="Country" />
                         <ComboBox fx:id="CountryCombo" onAction="#onCountrySelected" prefWidth="150.0" />
-                        <Label fx:id="CtryErr" styleClass="errorMsg" />
+                        <Label fx:id="CtryErr" styleClass="errorMsg" wrapText="true" />
                      </children>
                   </VBox>
                   <VBox prefHeight="100.0" prefWidth="100.0" styleClass="formItem">
                      <children>
                         <Label styleClass="largeFieldLabel" text="First-Level Division" />
                         <ComboBox fx:id="FLDCombo" prefWidth="150.0" />
-                        <Label fx:id="FLDErr" styleClass="errorMsg" />
+                        <Label fx:id="FLDErr" styleClass="errorMsg" wrapText="true" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">

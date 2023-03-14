@@ -26,6 +26,12 @@ import java.util.ResourceBundle;
 public class customer_ctlr implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            Working.resetCustomers();
+            CustomerQuery.selectAll();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         CustTable.setItems(Working.getAllCustomers());
         CustIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         CustNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -62,18 +68,25 @@ public class customer_ctlr implements Initializable {
         Platform.exit();
     }
 
-    @FXML public void ClickAddCust(ActionEvent e) throws IOException {
+    @FXML public void clickAddCust(ActionEvent e) throws IOException {
         stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/addCust.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
-    @FXML public void ClickEditCust(ActionEvent e) throws IOException {
+    @FXML public void clickApptBtn(ActionEvent e) throws IOException {
+        stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/appointmentsView.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    @FXML public void clickEditCust(ActionEvent e) throws IOException {
 
     }
 
-    @FXML public void ClickDelCust(ActionEvent e) throws IOException {
+    @FXML public void clickDelCust(ActionEvent e) throws IOException {
 
     }
 

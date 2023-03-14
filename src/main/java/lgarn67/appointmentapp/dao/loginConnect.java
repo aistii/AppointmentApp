@@ -24,6 +24,8 @@ public class loginConnect {
                 return true;
             }
     }
+
+    // these fetch is to keep track for later~~~
     public static int fetchId (String username, String password) throws SQLException {
         String query = "SELECT User_ID FROM users WHERE (User_Name = ? AND Password = ?);";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
@@ -35,4 +37,15 @@ public class loginConnect {
         System.out.println(userId);
         return userId;
     }
+
+    public static String fetchUsername (String username, String password) throws SQLException  {
+        String query = "SELECT User_Name FROM users WHERE (User_Name = ? AND Password = ?);";
+        PreparedStatement ps = dbconnection.connection.prepareStatement(query);
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getString("User_Name");
+    }
+
 }

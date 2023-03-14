@@ -26,6 +26,10 @@ public class Working {
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> monthAppt = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> weekAppt = FXCollections.observableArrayList();
+    private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
+    private static ObservableList<User> allUsers = FXCollections.observableArrayList();
 
     private static int loggedInId;
     public static int getLoggedInId() {
@@ -34,7 +38,15 @@ public class Working {
     public static void setLoggedInId(int loggedInId) {
         Working.loggedInId = loggedInId;
     }
+    private static String loggedInName;
 
+    public static String getLoggedInName() {
+        return loggedInName;
+    }
+
+    public static void setLoggedInName(String loggedInName) {
+        Working.loggedInName = loggedInName;
+    }
     //TODO
     // Create a method that allows the program to store the logged in person's id.
 
@@ -49,8 +61,20 @@ public class Working {
     public static ObservableList<Customer> getAllCustomers() {
         return allCustomers;
     }
+
+    public static void resetCustomers() {
+        allCustomers.clear();
+    }
     public static void addCustomer (Customer newCustomer) {
         allCustomers.add(newCustomer);
+    }
+
+    public static void removeCustomer (Customer customer) {
+        allCustomers.remove(customer);
+    }
+
+    public static void removeCustomer (int index) {
+        allCustomers.remove(index);
     }
 
     /*  =======================================
@@ -94,19 +118,12 @@ public class Working {
         allCountries.remove(index);
     }
 
-
     public static void resetCountries() {
-        int i;
-        for (i = 0; i < allCountries.size(); i++) {
-            removeCountry(i);
-        }
+        allCountries.clear();
     }
 
     public static void resetDivisions() {
-        int i;
-        for (i = 0; i < allDivisions.size(); i++) {
-            removeDivision(i);
-        }
+        allDivisions.clear();
     }
     /*  =======================================
      *  ====== APPOINTMENT RELATED PARTS  =====
@@ -115,11 +132,95 @@ public class Working {
         return allAppointments;
     }
 
+    public static ObservableList<Appointment> getMonthAppt() {
+        return monthAppt;
+    }
+
+    public static ObservableList<Appointment> getWeekAppt() {
+        return weekAppt;
+    }
+
     public static void addAppointment(Appointment newAppointment) {
         allAppointments.add(newAppointment);
     }
 
+    public static void removeAppointment (Appointment appointment) {
+        allAppointments.remove(appointment);
+    }
+
+    public static void removeAppointment (int index) {
+        allAppointments.remove(index);
+    }
+
+    public static void resetAllAppointment () {
+       allAppointments.clear();
+    }
+
+    public static void addApptMonth(Appointment newAppointment) {
+        monthAppt.add(newAppointment);
+    }
+
+    public static void removeMonthAppointment(Appointment appointment) {
+        monthAppt.remove(appointment);
+    }
+
+    public static void removeMonthAppointment (int index) {
+        monthAppt.remove(index);
+    }
+
+    public static void resetMonthAppointment () {
+        monthAppt.clear();
+    }
+
+    public static void addApptWeek(Appointment newAppointment) {
+        weekAppt.add(newAppointment);
+    }
+
+    public static void removeWeekAppointment(Appointment appointment) {
+        weekAppt.remove(appointment);
+    }
+
+    public static void removeWeekAppointment (int index) {
+        weekAppt.remove(index);
+    }
+
+    public static void resetWeekAppointment () {
+        weekAppt.clear();
+    }
 
 
+    /*  =======================================
+     *  ====== USER AND CONTACT METHODS  ======
+     */
 
+    public static ObservableList<Contact> getAllContacts() {
+        return allContacts;
+    }
+    public static void addContact (Contact newContact) {
+        allContacts.add(newContact);
+    }
+    public static void removeContact (Contact contact) {
+        allContacts.remove(contact);
+    }
+    public static void removeContact (int index) {
+        allContacts.remove(index);
+    }
+    public static void resetContacts() {
+        allContacts.clear();
+    }
+    public static ObservableList<User> getAllUsers() {
+        return allUsers;
+    }
+    public static void addUser (User newUser) {
+        allUsers.add(newUser);
+    }
+    public static void removeUser (User user) {
+        allUsers.remove(user);
+    }
+    public static void removeUser (int index) {
+        allUsers.remove(index);
+    }
+    public static void resetUsers (){
+        allUsers.clear();
+    }
 }

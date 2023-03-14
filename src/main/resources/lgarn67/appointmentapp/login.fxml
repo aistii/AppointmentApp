@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.login_ctlr">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.login_ctlr">
    <children>
       <VBox alignment="CENTER_LEFT" prefHeight="500.0" prefWidth="300.0" styleClass="loginVbox">
          <children>
@@ -42,10 +42,10 @@
                   <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#clickLogin" text="%LoginBtn" />
                   <HBox fx:id="loginFooterSetting" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="loginFooterItems">
+                        <VBox alignment="TOP_CENTER" prefHeight="48.0" prefWidth="278.0" styleClass="loginFooterItems">
                            <children>
                               <Label fx:id="timeZoneHeader" styleClass="label.loginFooterItems" text="%TimeZoneTopLbl" textAlignment="CENTER" />
-                              <Label fx:id="timeZoneLabel" />
+                              <Label fx:id="timeZoneLabel" prefHeight="16.0" prefWidth="200.0" style="-fx-alignment: center;" text="Timezone" wrapText="true" />
                            </children>
                         </VBox>
                      </children>

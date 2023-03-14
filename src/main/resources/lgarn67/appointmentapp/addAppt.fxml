@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.add_appt_ctlr">
+   <children>
+      <HBox layoutX="32.0" layoutY="67.0" prefHeight="605.0" prefWidth="1190.0">
+         <children>
+            <VBox prefHeight="550.0" prefWidth="300.0" styleClass="vBoxCol">
+               <children>
+                  <VBox maxHeight="125.0" prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Appointment ID" />
+                        <TextField disable="true" styleClass="largeTextField" text="automatically set" />
+                     </children>
+                  </VBox>
+                  <VBox maxHeight="125.0" prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Title" />
+                        <TextField fx:id="titleField" styleClass="largeTextField" />
+                        <Label fx:id="titleErrMsg" maxHeight="40.0" styleClass="errorMsg" wrapText="true" />
+                     </children>
+                  </VBox>
+                  <VBox maxHeight="125.0" prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Location" />
+                        <TextField fx:id="locField" styleClass="largeTextField" />
+                        <Label fx:id="locErrMsg" maxHeight="40.0" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Description" />
+                        <TextArea fx:id="descField" prefHeight="125.0" prefWidth="200.0" styleClass="largeTextField" />
+                        <Label fx:id="descErrMsg" maxHeight="40.0" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="300.0" styleClass="vBoxCol">
+               <children>
+                  <VBox prefHeight="125.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Type" />
+                        <TextField fx:id="typeField" styleClass="largeTextField" />
+                        <Label fx:id="typeErrMsg" maxHeight="40.0" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Contact" />
+                        <ComboBox fx:id="contactField" prefWidth="150.0" promptText="Select a contact..." />
+                        <Label fx:id="contErrMsg" maxHeight="40.0" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Customer" />
+                        <ComboBox fx:id="custField" prefWidth="150.0" promptText="Select a customer..." />
+                        <Label fx:id="custErrMsg" maxHeight="40.0" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="User" />
+                        <ComboBox fx:id="userField" prefWidth="150.0" promptText="Select a user..." />
+                        <Label fx:id="userErrMsg" maxHeight="40.0" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="300.0" styleClass="vBoxCol">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="Start Date and Time" />
+                        <DatePicker fx:id="startDate" editable="false" />
+                        <HBox prefHeight="60.0" prefWidth="260.0" styleClass="timeFieldHbox">
+                           <children>
+                              <Spinner fx:id="startHour" styleClass="hoursSpinner">
+                                 <valueFactory>
+                                    <SpinnerValueFactory.IntegerSpinnerValueFactory max="23" min="00" />
+                                 </valueFactory>
+                              </Spinner>
+                              <Label styleClass="colonTime" text=":" />
+                              <Spinner fx:id="startMin" styleClass="minutesSpinner">
+                                 <valueFactory>
+                                    <SpinnerValueFactory.IntegerSpinnerValueFactory max="59" min="00" />
+                                 </valueFactory>
+                              </Spinner>
+                           </children>
+                        </HBox>
+                        <Label fx:id="startErrMsg" maxHeight="60.0" styleClass="errorMsg" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="formItem">
+                     <children>
+                        <Label styleClass="largeFieldLabel" text="End Date and Time" />
+                        <DatePicker fx:id="endDate" editable="false" />
+                        <HBox prefHeight="60.0" prefWidth="200.0" styleClass="timeFieldHbox">
+                           <children>
+                              <Spinner fx:id="endHour" styleClass="hoursSpinner">
+                                 <valueFactory>
+                                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="00" max="23" min="00" />
+                                 </valueFactory>
+                              </Spinner>
+                              <Label styleClass="colonTime" text=":" />
+                              <Spinner fx:id="endMinute" styleClass="minutesSpinner">
+                                 <valueFactory>
+                                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="00" max="59" min="00" />
+                                 </valueFactory>
+                              </Spinner>
+                           </children>
+                        </HBox>
+                        <Label fx:id="endErrMsg" maxHeight="60.0" styleClass="errorMsg" wrapText="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="222.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button fx:id="SaveBtn" mnemonicParsing="false" onAction="#clickSaveAppt" styleClass="formBtnSave" text="Add" />
+                  <Button fx:id="CancelBtn" mnemonicParsing="false" onAction="#clickCancel" styleClass="formBtnCancel" text="Cancel" />
+                  <VBox prefHeight="188.0" prefWidth="200.0" styleClass="formItem">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" styleClass="largeFieldLabel" text="Your Timezone:" />
+                        <Label fx:id="timeZoneLabel" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Label layoutX="32.0" layoutY="23.0" styleClass="viewHeader" text="Add Appointment" />
+   </children>
+</AnchorPane>

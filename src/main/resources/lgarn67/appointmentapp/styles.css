@@ -332,3 +332,114 @@ and time zone display
     -fx-font-style: italic;
     -fx-font-size: 12px;
 }
+
+/* Date Picker */
+.date-picker {
+    -fx-background-color: #5B6178;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-text-fill: #E3E9FC;
+}
+
+.date-picker .text-field {
+
+    -fx-background-radius: 2;
+    -fx-max-width: 250px;
+    -fx-font-size: 16px;
+    -fx-text-fill: E3E9FC;
+    -fx-padding: 3px;
+}
+
+.date-picker-popup {
+    -fx-background-color: #484C5E;
+}
+
+.date-picker-popup .calendar-grid {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+.date-picker-popup .date-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-text-fill: #E3E9FC;
+}
+
+.date-picker-popup .day-name-cell,
+.date-picker-popup .week-number-cell {
+    -fx-font-size: 10px;
+    -fx-border-weight: 0;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #515E91;
+}
+
+.date-picker-popup * .spinner .button .left-arrow,
+.date-picker-popup * .spinner .button .right-arrow {
+    -fx-background-color: #E3E9FC;
+}
+
+/* Selections for DatePicker */
+
+.date-picker-popup .today {
+    -fx-background-color: rgba(255, 255, 255, 0.20);
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.10);
+}
+
+.date-picker-popup .today:hover,
+.date-picker-popup .today:selected {
+    -fx-background-color: rgba(255, 255, 255, 0.50);
+}
+
+.date-picker-popup .previous-month,
+.date-picker-popup .next-month {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A3A7B5;
+}
+
+/* Spinners for time and other time related parts*/
+.spinner {
+    -fx-background-color: #5B6178;
+    -fx-max-width: 250px;
+    -fx-font-size: 16px;
+    -fx-text-fill: #E3E9FC;
+}
+
+.spinner .text-field {
+    -fx-background-radius: 2;
+    -fx-text-fill: #E3E9FC;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: rgba(0,0,0,.15);
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-background-color: rgba(0,0,0,.25);
+}
+
+.spinner .increment-arrow-button .increment-arrow,
+.spinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: #E3E9FC;
+}
+
+.timeFieldHbox {
+    -fx-spacing:5px;
+    -fx-alignment: baseline-left;
+}
+
+.colonTime { 
+    -fx-font-size: 16px;
+    -fx-text-fill: #E3E9FC;
+    -fx-font-weight: bold;
+}
+.hoursSpinner,
+.minutesSpinner {
+    -fx-max-width: 100px;
+}

@@ -1,19 +1,21 @@
 package lgarn67.appointmentapp;
 
+import java.time.LocalDateTime;
+
 public class Appointment {
 
     private int id;
     private String title;
     private String descrip;
     private String location;
-    private String contact;
+    private Contact contact;
     private String type;
-    private String startDateTime;
-    private String endDateTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
     private int custId;
     private int userId;
 
-    public Appointment(int id, String title, String descrip, String location, String contact, String type, String startDateTime, String endDateTime, int custId, int userId) {
+    public Appointment(int id, String title, String descrip, String location, Contact contact, String type, LocalDateTime startDateTime, LocalDateTime endDateTime, int custId, int userId) {
         this.id = id;
         this.title = title;
         this.descrip = descrip;
@@ -58,11 +60,11 @@ public class Appointment {
         this.location = location;
     }
 
-    public String getContact() {
+    public Contact getContact() {
         return contact;
     }
 
-    public void setContact(String contact) {
+    public void setContact(Contact contact) {
         this.contact = contact;
     }
 
@@ -74,19 +76,19 @@ public class Appointment {
         this.type = type;
     }
 
-    public String getStartDateTime() {
+    public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(String startDateTime) {
+    public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public String getEndDateTime() {
+    public LocalDateTime getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(String endDateTime) {
+    public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }
 
@@ -105,6 +107,4 @@ public class Appointment {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
-
 }

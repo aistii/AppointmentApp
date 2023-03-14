@@ -84,5 +84,8 @@ public class Customer {
     public void setFldId(int fldId) {
         this.fldId = fldId;
     }
-
+    @Override // specifically for the comboboxes since the other places use getters.
+    public String toString() {
+        return (Integer.toString(id)+ " | " + name);
+    }
 }
