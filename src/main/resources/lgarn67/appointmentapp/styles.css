@@ -443,3 +443,48 @@ and time zone display
 .minutesSpinner {
     -fx-max-width: 100px;
 }
+
+/* Dialog Alert Popup */
+.dialog-pane {
+    -fx-background-color: #383C4A;
+    -fx-pref-width: 500px;
+    -fx-pref-height: 250px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #5B6178;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: #4D5C99;
+    -fx-text-fill: #E3E9FC;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-effect: innershadow(three-pass-box , #8099FF, 0, 0, 0, -2);
+    -fx-max-width: 20px;
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color:#404D80;
+    -fx-effect: innershadow(three-pass-box , #738AE6, 0, 0, 0, -2);
+}
+
+
+.dialog-pane .button-bar .button:pressed {
+    -fx-background-color:#262E4D;
+    -fx-effect: innershadow(three-pass-box , #596BB3, 0, 0, 0, 0);
+}
+
+.context-menu {
+    -fx-background-color: #404D80;
+    /* do a drop shadow*/
+}
+
+.context-menu .separator:horizontal .line {
+    -fx-background-color: #383C4A;
+}

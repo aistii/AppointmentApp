@@ -12,10 +12,10 @@ public class Appointment {
     private String type;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private int custId;
-    private int userId;
+    private Customer customer;
+    private User user;
 
-    public Appointment(int id, String title, String descrip, String location, Contact contact, String type, LocalDateTime startDateTime, LocalDateTime endDateTime, int custId, int userId) {
+    public Appointment(int id, String title, String descrip, String location, Contact contact, String type, LocalDateTime startDateTime, LocalDateTime endDateTime, Customer customer, User user) {
         this.id = id;
         this.title = title;
         this.descrip = descrip;
@@ -24,8 +24,8 @@ public class Appointment {
         this.type = type;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.custId = custId;
-        this.userId = userId;
+        this.customer = customer;
+        this.user = user;
     }
 
     public int getId() {
@@ -92,19 +92,19 @@ public class Appointment {
         this.endDateTime = endDateTime;
     }
 
-    public int getCustId() {
-        return custId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustId(int custId) {
-        this.custId = custId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

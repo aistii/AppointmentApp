@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.add_appt_ctlr">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.edit_appt_ctlr">
    <children>
       <HBox layoutX="32.0" layoutY="67.0" prefHeight="605.0" prefWidth="1190.0">
          <children>
@@ -21,7 +21,7 @@
                   <VBox maxHeight="125.0" prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
                      <children>
                         <Label styleClass="largeFieldLabel" text="Appointment ID" />
-                        <TextField disable="true" styleClass="largeTextField" text="automatically set" />
+                        <TextField fx:id="idField" disable="true" styleClass="largeTextField" />
                      </children>
                   </VBox>
                   <VBox maxHeight="125.0" prefHeight="100.0" prefWidth="300.0" styleClass="formItem">
@@ -111,13 +111,13 @@
                            <children>
                               <Spinner fx:id="endHour" styleClass="hoursSpinner">
                                  <valueFactory>
-                                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="00" max="23" min="00" wrapAround="true"/>
+                                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="00" max="23" min="00" wrapAround="true" />
                                  </valueFactory>
                               </Spinner>
                               <Label styleClass="colonTime" text=":" />
                               <Spinner fx:id="endMinute" styleClass="minutesSpinner">
                                  <valueFactory>
-                                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="00" max="59" min="00" wrapAround="true"/>
+                                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="00" max="59" min="00" wrapAround="true" />
                                  </valueFactory>
                               </Spinner>
                            </children>
@@ -129,7 +129,7 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="222.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="SaveBtn" mnemonicParsing="false" onAction="#clickSaveAppt" styleClass="formBtnSave" text="Add" />
+                  <Button fx:id="SaveBtn" mnemonicParsing="false" onAction="#clickSaveAppt" styleClass="formBtnSave" text="Save" />
                   <Button fx:id="CancelBtn" mnemonicParsing="false" onAction="#clickCancel" styleClass="formBtnCancel" text="Cancel" />
                   <VBox prefHeight="188.0" prefWidth="200.0" styleClass="formItem">
                      <children>
@@ -141,6 +141,6 @@
             </VBox>
          </children>
       </HBox>
-      <Label layoutX="32.0" layoutY="23.0" styleClass="viewHeader" text="Add Appointment" />
+      <Label layoutX="32.0" layoutY="23.0" styleClass="viewHeader" text="Edit Appointment" />
    </children>
 </AnchorPane>

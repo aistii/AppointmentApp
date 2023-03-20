@@ -6,12 +6,12 @@ public class Customer {
     private String name;
     private String address;
     private String phoneNum;
-    private String country;
-    private String fld;
+    private Country country;
+    private Division fld;
     private int fldId;
     private String postCode;
 
-    public Customer(int id, String name, String address, String phoneNum, String country, String fld, String postCode) {
+    public Customer(int id, String name, String address, String phoneNum, Country country, Division fld, String postCode) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -53,19 +53,19 @@ public class Customer {
         this.phoneNum = phoneNum;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
-    public String getFld() {
+    public Division getFld() {
         return fld;
     }
 
-    public void setFld(String fld) {
+    public void setFld(Division fld) {
         this.fld = fld;
     }
 

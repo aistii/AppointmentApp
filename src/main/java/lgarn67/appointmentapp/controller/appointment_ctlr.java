@@ -1,6 +1,8 @@
 package lgarn67.appointmentapp.controller;
 
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,7 +28,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class appointment_ctlr implements Initializable {
@@ -62,8 +66,10 @@ public class appointment_ctlr implements Initializable {
         AllAppt_Type.setCellValueFactory(new PropertyValueFactory<>("type"));
         AllAppt_Start.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
         AllAppt_End.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
-        AllAppt_CustID.setCellValueFactory(new PropertyValueFactory<>("custId"));
-        AllAppt_UserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        //AllAppt_CustID.setCellValueFactory(new PropertyValueFactory<>("custId"));
+        AllAppt_CustID.setCellValueFactory(cust -> new SimpleStringProperty(Integer.toString(cust.getValue().getCustomer().getId())));
+        //AllAppt_UserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        AllAppt_UserID.setCellValueFactory(user -> new SimpleStringProperty(Integer.toString(user.getValue().getUser().getId())));
 
         MonthAppointmentTable.setItems(Working.getMonthAppt());
         MonthAppt_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -74,8 +80,10 @@ public class appointment_ctlr implements Initializable {
         MonthAppt_Type.setCellValueFactory(new PropertyValueFactory<>("type"));
         MonthAppt_Start.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
         MonthAppt_End.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
-        MonthAppt_CustID.setCellValueFactory(new PropertyValueFactory<>("custId"));
-        MonthAppt_UserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        //MonthAppt_CustID.setCellValueFactory(new PropertyValueFactory<>("custId"));
+        MonthAppt_CustID.setCellValueFactory(cust -> new SimpleStringProperty(Integer.toString(cust.getValue().getCustomer().getId())));
+        //MonthAppt_UserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        MonthAppt_UserID.setCellValueFactory(user -> new SimpleStringProperty(Integer.toString(user.getValue().getUser().getId())));
 
         WeekAppointmentTable.setItems(Working.getWeekAppt());
         WeekAppt_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -86,8 +94,10 @@ public class appointment_ctlr implements Initializable {
         WeekAppt_Type.setCellValueFactory(new PropertyValueFactory<>("type"));
         WeekAppt_Start.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
         WeekAppt_End.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
-        WeekAppt_CustID.setCellValueFactory(new PropertyValueFactory<>("custId"));
-        WeekAppt_UserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        //WeekAppt_CustID.setCellValueFactory(new PropertyValueFactory<>("custId"));
+        WeekAppt_CustID.setCellValueFactory(cust -> new SimpleStringProperty(Integer.toString(cust.getValue().getCustomer().getId())));
+        //WeekAppt_UserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        WeekAppt_UserID.setCellValueFactory(user -> new SimpleStringProperty(Integer.toString(user.getValue().getUser().getId())));
     }
     Stage stage;
     Parent scene;
@@ -105,7 +115,7 @@ public class appointment_ctlr implements Initializable {
     @FXML private Button SBReportBtn;
     @FXML private TableView<Appointment> AllAppointmentsTable;
     @FXML private TableColumn<Appointment, String> AllAppt_Contact;
-    @FXML private TableColumn<Appointment, Integer> AllAppt_CustID;
+    @FXML private TableColumn<Appointment, String> AllAppt_CustID;
     @FXML private TableColumn<Appointment, String> AllAppt_Des;
     @FXML private TableColumn<Appointment, LocalDateTime> AllAppt_End;
     @FXML private TableColumn<Appointment, Integer> AllAppt_ID;
@@ -113,10 +123,10 @@ public class appointment_ctlr implements Initializable {
     @FXML private TableColumn<Appointment, LocalDateTime> AllAppt_Start;
     @FXML private TableColumn<Appointment, String> AllAppt_Title;
     @FXML private TableColumn<Appointment, String> AllAppt_Type;
-    @FXML private TableColumn<Appointment, Integer> AllAppt_UserID;
+    @FXML private TableColumn<Appointment, String> AllAppt_UserID;
     @FXML private TableView<Appointment> MonthAppointmentTable;
     @FXML private TableColumn<Appointment, String> MonthAppt_Contact;
-    @FXML private TableColumn<Appointment, Integer> MonthAppt_CustID;
+    @FXML private TableColumn<Appointment, String> MonthAppt_CustID;
     @FXML private TableColumn<Appointment, String> MonthAppt_Des;
     @FXML private TableColumn<Appointment, LocalDateTime> MonthAppt_End;
     @FXML private TableColumn<Appointment, Integer> MonthAppt_ID;
@@ -124,18 +134,18 @@ public class appointment_ctlr implements Initializable {
     @FXML private TableColumn<Appointment, LocalDateTime> MonthAppt_Start;
     @FXML private TableColumn<Appointment, String> MonthAppt_Title;
     @FXML private TableColumn<Appointment, String> MonthAppt_Type;
-    @FXML private TableColumn<Appointment, Integer> MonthAppt_UserID;
+    @FXML private TableColumn<Appointment, String> MonthAppt_UserID;
     @FXML private TableView<Appointment> WeekAppointmentTable;
     @FXML private TableColumn<Appointment, String> WeekAppt_Contact;
-    @FXML private TableColumn<Appointment, Integer> WeekAppt_CustID;
-    @FXML private TableColumn<Appointment, Integer> WeekAppt_Des;
+    @FXML private TableColumn<Appointment, String> WeekAppt_CustID;
+    @FXML private TableColumn<Appointment, String> WeekAppt_Des;
     @FXML private TableColumn<Appointment, LocalDateTime> WeekAppt_End;
     @FXML private TableColumn<Appointment, Integer> WeekAppt_ID;
     @FXML private TableColumn<Appointment, String> WeekAppt_Loc;
     @FXML private TableColumn<Appointment, LocalDateTime> WeekAppt_Start;
     @FXML private TableColumn<Appointment, String> WeekAppt_Title;
     @FXML private TableColumn<Appointment, String> WeekAppt_Type;
-    @FXML private TableColumn<Appointment, Integer> WeekAppt_UserID;
+    @FXML private TableColumn<Appointment, String> WeekAppt_UserID;
 
 
     @FXML void clickAddAppt(ActionEvent event) throws IOException {
@@ -160,11 +170,133 @@ public class appointment_ctlr implements Initializable {
     }
 
     @FXML void clickDelAppt(ActionEvent event) {
+        try {
+            if (AppointmentTabPane.getSelectionModel().getSelectedItem() == AllApptTab) {
+                Appointment selA = AllAppointmentsTable.getSelectionModel().getSelectedItem();
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                alert_ctlr.loadDialogStyle(confirm);
+                confirm.setTitle("Confirm Appointment Deletion");
+                confirm.setHeaderText("Confirm Appointment Deletion");
+                confirm.setContentText("Canceling appointment ID #" +selA.getId()+ " of type " + selA.getType() + ". Continue?");
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                    AppointmentQuery.deleteAppointment(selA.getId());
+                    try {
+                        Working.resetAllAppointment();
+                        Working.resetMonthAppointment();
+                        Working.resetWeekAppointment();
+                        Working.resetCustomers();
+                        AppointmentQuery.selectAllAppt();
+                        AppointmentQuery.selectMonthAppt();
+                        AppointmentQuery.selectWeekAppt();
+                        CustomerQuery.selectAll();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    Alert executed = new Alert(Alert.AlertType.INFORMATION, "Appointment ID #" +selA.getId()+
+                            " of type "+selA.getType()+ " has been cancelled.");
+                    alert_ctlr.loadDialogStyle(executed);
+                    executed.showAndWait();
+                }
 
+
+            } else if (AppointmentTabPane.getSelectionModel().getSelectedItem() == MonthApptTab) {
+                Appointment selA = MonthAppointmentTable.getSelectionModel().getSelectedItem();
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                alert_ctlr.loadDialogStyle(confirm);
+                confirm.setTitle("Confirm Customer Deletion");
+                confirm.setHeaderText("Confirm Customer Deletion");
+                confirm.setContentText("Canceling appointment ID #" +selA.getId()+ " of type " + selA.getType() + ". Continue?");
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                    AppointmentQuery.deleteAppointment(selA.getId());
+                    try {
+                        Working.resetAllAppointment();
+                        Working.resetMonthAppointment();
+                        Working.resetWeekAppointment();
+                        Working.resetCustomers();
+                        AppointmentQuery.selectAllAppt();
+                        AppointmentQuery.selectMonthAppt();
+                        AppointmentQuery.selectWeekAppt();
+                        CustomerQuery.selectAll();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    Alert executed = new Alert(Alert.AlertType.INFORMATION, "Appointment ID #" +selA.getId()+
+                            " of type "+selA.getType()+ " has been cancelled.");
+                    alert_ctlr.loadDialogStyle(executed);
+                    executed.showAndWait();
+                }
+
+            } else if (AppointmentTabPane.getSelectionModel().getSelectedItem() == WeekApptTab) {
+                Appointment selA = WeekAppointmentTable.getSelectionModel().getSelectedItem();
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                alert_ctlr.loadDialogStyle(confirm);
+                confirm.setTitle("Confirm Customer Deletion");
+                confirm.setHeaderText("Confirm Customer Deletion");
+                confirm.setContentText("Canceling appointment ID #" +selA.getId()+ " of type " + selA.getType() + ". Continue?");
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                    AppointmentQuery.deleteAppointment(selA.getId());
+                    try {
+                        Working.resetAllAppointment();
+                        Working.resetMonthAppointment();
+                        Working.resetWeekAppointment();
+                        Working.resetCustomers();
+                        AppointmentQuery.selectAllAppt();
+                        AppointmentQuery.selectMonthAppt();
+                        AppointmentQuery.selectWeekAppt();
+                        CustomerQuery.selectAll();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    Alert executed = new Alert(Alert.AlertType.INFORMATION, "Appointment ID #" +selA.getId()+
+                            " of type "+selA.getType()+ " has been cancelled.");
+                    alert_ctlr.loadDialogStyle(executed);
+                    executed.showAndWait();
+                }
+            }
+
+        } catch (Exception ex) {
+
+        }
     }
 
-    @FXML void clickEditAppt(ActionEvent event) {
+    @FXML void clickEditAppt(ActionEvent event) throws IOException{
+        try {
+            if ((AppointmentTabPane.getSelectionModel().getSelectedItem() == AllApptTab)) {
+                Appointment selA = AllAppointmentsTable.getSelectionModel().getSelectedItem();
+                edit_appt_ctlr.loadData(AppointmentQuery.selectAppt(selA.getId()));
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/editAppt.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+                //AppointmentQuery.selectAppt(selA.getId());
+            } else if ((AppointmentTabPane.getSelectionModel().getSelectedItem() == MonthApptTab)) {
+                Appointment selA = MonthAppointmentTable.getSelectionModel().getSelectedItem();
+                edit_appt_ctlr.loadData(AppointmentQuery.selectAppt(selA.getId()));
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/editAppt.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            } else if ((AppointmentTabPane.getSelectionModel().getSelectedItem() == WeekApptTab)) {
+                Appointment selA = WeekAppointmentTable.getSelectionModel().getSelectedItem();
+                edit_appt_ctlr.loadData(AppointmentQuery.selectAppt(selA.getId()));
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/editAppt.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
 
+        } catch (NullPointerException | SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert_ctlr.loadDialogStyle(alert);
+            alert.setTitle("No Appointment Selected");
+            alert.setHeaderText("No Appointment Selected");
+            alert.setContentText("Please select an appointment to edit.");
+            alert.showAndWait();
+            ex.printStackTrace();
+        }
     }
 
     @FXML void clickSBEXit(ActionEvent event) {

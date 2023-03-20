@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class CountryQuery {
 
     // The getCountries() acts in a similar manner to the selectAll() method.
-    public static void getCountries() throws SQLException {
+    public static void getAllCountries() throws SQLException {
         try {
             Working.resetCountries();
             String query = "SELECT Country_ID, Country FROM countries;";
@@ -24,5 +24,19 @@ public class CountryQuery {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public static Country getCustCtry(int divId) throws SQLException {
+        String query = "SELECT countries.Country_ID, countries.Country " +
+                "FROM first_level_divisions " +
+                "JOIN countries ON countries.Country_ID = first_level_divisions.COUNTRY_ID " +
+                "WHERE first_level_divisions.Division_ID = ?;";
+        PreparedStatement ps = dbconnection.connection.prepareStatement(query);
+        ps.setInt(1, divId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        String cname = rs.getString("Country");
+        int cId = rs.getInt("country_id");
+        return (new Country(cId, cname));
     }
 }

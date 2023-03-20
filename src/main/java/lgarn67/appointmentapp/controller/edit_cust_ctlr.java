@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import lgarn67.appointmentapp.Country;
+import lgarn67.appointmentapp.Customer;
 import lgarn67.appointmentapp.Division;
 import lgarn67.appointmentapp.Working;
 import lgarn67.appointmentapp.dao.CountryQuery;
@@ -28,26 +29,45 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class add_cust_ctlr implements Initializable {
-
-Stage stage;
-Parent scene;
+public class edit_cust_ctlr implements Initializable {
+    Stage stage;
+    Parent scene;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //TODO
+        // Figure out how to put in the Country and Division
         try {
             CountryQuery.getAllCountries();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Ran CountryQuery.getAllCountries()");
+            passCountryId(loadedCountry.getId());
+        } catch (SQLException e ) {
+
         }
         CountryCombo.getItems().clear();
         CountryCombo.setItems(Working.getAllCountries());
-        CountryCombo.setPromptText("Select a country...");
-        FLDCombo.setPromptText("Please select a country first.");
+        CountryCombo.getSelectionModel().select(loadedCountry);
+        FLDCombo.getItems().clear();
+        FLDCombo.setItems(Working.getAllDivisions());
+        FLDCombo.getSelectionModel().select(loadedDivision);
+        IdField.setText(Integer.toString(loadedId));
+        NameField.setText(loadedName);
+        AddrField.setText(loadedAddr);
+        PostField.setText(loadedPost);
+        PhoneField.setText(loadedPhone);
+        try {
+            DivisionQuery.getAllRelatedDivisions(loadedCountry.getId());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        FLDCombo.setItems(Working.getAllDivisions());
+        FLDCombo.getSelectionModel().select(loadedDivision);
     }
 
-    @FXML private Button SaveBtn;
+    @FXML
+    private Button SaveBtn;
     @FXML private Button CancelBtn;
+    @FXML private TextField IdField;
     @FXML private TextField NameField;
     @FXML private TextField AddrField;
     @FXML private TextField PostField;
@@ -64,13 +84,27 @@ Parent scene;
     Border errorStyle = new Border(new BorderStroke(Color.valueOf("#EF596F"), BorderStrokeStyle.SOLID, null, new BorderWidths(1)));
     Border clearStyle = new Border(new BorderStroke(new Color(0,0,0,0), BorderStrokeStyle.NONE, null, new BorderWidths(0)));
 
+    // Loader Variable
+    static int loadedId;
+    static String loadedName;
+    static String loadedAddr;
+    static String loadedPost;
+    static String loadedPhone;
+    static Country loadedCountry;
+    static Division loadedDivision;
+
+    // to check the loaded l
+
+
     @FXML void onCountrySelected() throws SQLException {
-        FLDCombo.getItems().clear();
-        try {
-            int ctryId = CountryCombo.getSelectionModel().getSelectedItem().getId();
-            passCountryId(ctryId);
-        } catch (NullPointerException e) {
-            // Nothing will happen don't worry about it dawg
+        if (!CountryCombo.getSelectionModel().isEmpty()) {
+            FLDCombo.getItems().clear();
+            try {
+                int ctryId = CountryCombo.getSelectionModel().getSelectedItem().getId();
+                passCountryId(ctryId);
+            } catch (NullPointerException e) {
+                // Nothing will happen don't worry about it dawg
+            }
         }
 
         FLDCombo.setPromptText("Select first-level division...");
@@ -89,20 +123,23 @@ Parent scene;
         stage.show();
     }
 
-    // First it will check if checkCompletion() returns true. It will just be an "if" statement at the highest level.
-    // The number formatting should not be too much of an issue since most of these things are a string/can't be taken the wrong way
     @FXML void ClickSaveCust(ActionEvent event) throws SQLException, IOException {
         // Checks that fields are filled first;
         // and then after that, the lengths of text field.
         // It is nested though.. you will have to finish all fields first.
         if (checkCompletion()){
             if (checkLength()) {
+                int custId = Integer.parseInt(IdField.getText());
                 String custName = NameField.getText();
                 String custAddr = AddrField.getText();
                 String custPost = PostField.getText();
                 String custPhone = PhoneField.getText();
                 int custFld = FLDCombo.getSelectionModel().getSelectedItem().getDivisionId();
-                CustomerQuery.insertCustomer(custName, custAddr, custPost, custPhone, custFld);
+                //CustomerQuery.insertCustomer(custName, custAddr, custPost, custPhone, custFld);
+                CustomerQuery.updateCustomer(custId, custName, custAddr, custPost, custPhone, custFld);
+                //TODO
+                // Need to update ze customer
+                // go to inside customer query!!
                 resetFields();
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
@@ -111,13 +148,22 @@ Parent scene;
             }
         }
     }
+    public static void loadData (Customer selC) {
+        //TODO
+        // Note that these just set the variables values from the Tableview it pulled it all from.
+        // In the initialize I will most likely call the init method to start adding everything to
+        // the fields.
+        loadedId = selC.getId();
+        loadedName = selC.getName();
+        loadedAddr = selC.getAddress();
+        loadedPost = selC.getPostCode();
+        loadedPhone = selC.getPhoneNum();
+        loadedCountry = selC.getCountry();
+        loadedDivision = selC.getFld();
 
 
-
-    // This checks for completion so that no NullErrorPointer exception is thrown.
-    // That way, there is just parsing that needs to be done, and I can catch type errors.
+    }
     public boolean checkCompletion () {
-
         nameErr.setText(null);
         AddrErr.setText(null);
         PostErr.setText(null);
@@ -133,7 +179,7 @@ Parent scene;
 
         // Checks if ANY field is empty (which will return false), then will individually mark which ones are a problem.
         if (NameField.getText().isBlank() || AddrField.getText().isBlank() || PostField.getText().isBlank() ||
-            PhoneField.getText().isBlank() || CountryCombo.getSelectionModel().isEmpty() || FLDCombo.getSelectionModel().isEmpty()){
+                PhoneField.getText().isBlank() || CountryCombo.getValue() == null || FLDCombo.getValue() == null){
             if (NameField.getText().isBlank()){
                 NameField.setBorder(errorStyle);
                 nameErr.setText("Please enter a name.");
@@ -164,14 +210,6 @@ Parent scene;
             return true;
         }
     }
-    //TODO
-    // Making a method to check the field lengths for the fields that will insert a
-    // VARCHAR value into the database.
-    // For Reference:
-    // 1) Customer Name maximum 50 chars
-    // 2) Address maximum 100
-    // 3) Phone maximum 50 chars
-    // 4) Postal Code max 50 char
 
     public boolean checkLength() {
         // Checks if length of any field is over maximum,
@@ -207,8 +245,6 @@ Parent scene;
             return true;
         }
     }
-
-    // Resets the error markings/messages and the fields themselves, a clean slate!
     public void resetFields () {
         NameField.clear();
         AddrField.clear();

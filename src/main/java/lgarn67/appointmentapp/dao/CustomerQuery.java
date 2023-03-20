@@ -36,12 +36,35 @@ public class CustomerQuery {
             String cPostCode = rsetC.getString("Postal_Code");
             String cPhoneNum = rsetC.getString("Phone");
             int cDivId = rsetC.getInt("Division_ID");
-            String[] ctryAndFLD = findDivisionCountry(cDivId);
-            Working.addCustomer(new Customer(id, cName, cAddress, cPhoneNum, ctryAndFLD[0], ctryAndFLD[1], cPostCode));
+            //String[] ctryAndFLD = findDivisionCountry(cDivId);
+            Country cCountry = CountryQuery.getCustCtry(cDivId);
+            Division cDiv = DivisionQuery.getCustDiv(cDivId);
+
+            // index 0 would be the country, index 1 is the division
+            Working.addCustomer(new Customer(id, cName, cAddress, cPhoneNum, cCountry, cDiv, cPostCode));
         }
     }
+
+    public static Customer selectCustomer(int custId) throws SQLException{
+        String query = "SELECT Customer_Name, Address, Postal_Code, Phone, Division_ID " +
+                "FROM customers " +
+                "WHERE Customer_ID = ?;";
+        PreparedStatement ps = dbconnection.connection.prepareStatement(query);
+        ps.setInt(1, custId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        String cName = rs.getString("Customer_Name");
+        String cAddr = rs.getString("Address");
+        String cPost = rs.getString("Postal_Code");
+        String cPhone = rs.getString("Phone");
+        int divId = rs.getInt("Division_ID");
+        Country cCountry = CountryQuery.getCustCtry(divId);
+        Division cDiv = DivisionQuery.getCustDiv(divId);
+        return (new Customer(custId, cName, cAddr, cPhone, cCountry, cDiv, cPost));
+
+    }
     // this join statement i feel should stay in customer...
-    public static String[] findDivisionCountry (int divisionId) throws SQLException {
+    /*public static String[] findDivisionCountry (int divisionId) throws SQLException {
         String[] location = new String[0];
         try {
             location = new String[2];
@@ -60,8 +83,7 @@ public class CustomerQuery {
             throwables.printStackTrace();
         }
         return location;
-    }
-
+    }*/
     /*
         === ADD A CUSTOMER SECTION ===
         * It will have many parameters uhoh
@@ -80,6 +102,33 @@ public class CustomerQuery {
         ps.setString(6, Working.getLoggedInName());
         ps.setInt(7, fldId);
         ps.executeUpdate();
-        }
+    }
+    public static void updateCustomer(int custId, String cName, String cAddr, String cPost, String cPhone, int fldId) throws SQLException {
+        String query = "UPDATE customers " +
+                "SET Customer_Name = ?," + //1
+                "Address = ?," + //2
+                "Postal_Code = ?," + //3
+                "Phone = ?," + //4
+                "Last_Update = NOW()," +
+                "Last_Updated_By = ?," + //5
+                "Division_ID = ? " +//6
+                "WHERE Customer_ID = ?"; //7
+        PreparedStatement ps = dbconnection.connection.prepareStatement(query);
+        ps.setString(1, cName);
+        ps.setString(2, cAddr);
+        ps.setString(3, cPost);
+        ps.setString(4, cPhone);
+        ps.setString(5, Working.getLoggedInName());
+        ps.setInt(6, fldId);
+        ps.setInt(7, custId);
+        ps.executeUpdate();
+    }
 
+    public static void deleteCustomer(int custId) throws SQLException {
+        AppointmentQuery.delCustAppts(custId);
+        String query = "DELETE FROM customers WHERE Customer_ID = ?;";
+        PreparedStatement ps = dbconnection.connection.prepareStatement(query);
+        ps.setInt(1, custId);
+        ps.executeUpdate();
+    }
 }

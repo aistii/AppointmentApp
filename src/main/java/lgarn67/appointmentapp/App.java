@@ -47,39 +47,7 @@ public class App extends Application {
 
 
     public static void main(String[] args) throws SQLException {
-        LocalDate myLocalDate = LocalDate.now();
-        LocalTime myLocalTime = LocalTime.now();
-        ZoneId myTimeZone = ZoneId.of(TimeZone.getDefault().getID());
-        ZonedDateTime myZDT = ZonedDateTime.of(myLocalDate, myLocalTime, myTimeZone);
-
-        ZoneId parisZone = ZoneId.of("Europe/Paris");
-
-        Instant meToUTC = myZDT.toInstant();
-
-        ZonedDateTime parisZDT = meToUTC.atZone(parisZone);
-
-        System.out.println("Local Date Time: " + myZDT);
-        System.out.println("Paris Date Time: " + parisZDT);
-        LocalTime startEasternHour = LocalTime.of(8,00);
-        LocalTime endEasternHour = LocalTime.of(22, 00);
-        LocalTime myTime = LocalTime.now();
-        if (myTime.isBefore(endEasternHour) && myTime.isAfter(startEasternHour)) {
-            System.out.println("You are in business hours! Yay");
-        } else {
-            System.out.println("You are missed business hours!");
-        }
-
-        System.out.println("Add 14 hours to start time: " + startEasternHour.plusHours(14));
-        LocalDate parisDate = LocalDate.now();
-        LocalTime parisTime = LocalTime.now();
-
         //Locale.setDefault(new Locale("fr"));
-
-    /*int startTimeH = myZDT.getHour();
-    int startTimeM = myZDT.getMinute();
-    LocalTime myNewStartTime = LocalTime.of(startTimeH, startTimeM);
-    return (myNewStartTime.isAfter(LocalTime.of(8,0)));*/
-
         launch();
         dbconnection.closeConnection();
     }

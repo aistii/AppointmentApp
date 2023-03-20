@@ -34,7 +34,7 @@ public class loginConnect {
         ResultSet rs = ps.executeQuery();
         rs.next();
         int userId = rs.getInt("User_ID");
-        System.out.println(userId);
+        //System.out.println(userId);
         return userId;
     }
 

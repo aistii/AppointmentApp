@@ -13,10 +13,12 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 import lgarn67.appointmentapp.Working;
+import lgarn67.appointmentapp.conversion.TimeChecks;
 import lgarn67.appointmentapp.dao.CustomerQuery;
 import lgarn67.appointmentapp.dao.loginConnect;
 
@@ -61,23 +63,17 @@ public class login_ctlr implements Initializable {
                 String fetchedUsername = loginConnect.fetchUsername(attemptUName, attemptPWord);
                 Working.setLoggedInId(fetchedUserId);// will pass to screen
                 Working.setLoggedInName(fetchedUsername);
-
-                //TODO
-                // Need to eventually implement the thing that holds user id in the duration of the app running
-                // in order to successfully show who modified the appointment or user last.
-                //CustomerQuery.selectAll();
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.show();
+                LocalDateTime loginTime = LocalDateTime.now();
+                TimeChecks.checkSoonAppt(loginTime); // triggers a chain reaction of events to show soon appointment
             } else {
                 uNameError.setVisible(true);
                 pWordError.setVisible(true);
             }
         }
-        //TODO
-        // Need to pass in the values typed into the fields to the loginConnect helper java file.
-
     }
 
 
