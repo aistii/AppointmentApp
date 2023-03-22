@@ -1,9 +1,8 @@
 package lgarn67.appointmentapp.dao;
 
-import lgarn67.appointmentapp.*;
-import lgarn67.appointmentapp.conversion.TimeChecks;
+import lgarn67.appointmentapp.helper.TimeChecks;
+import lgarn67.appointmentapp.model.*;
 
-import javax.xml.transform.Result;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,8 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AppointmentQuery {
-
-    public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     /*
         === Selection Queries ===
@@ -81,7 +78,7 @@ public class AppointmentQuery {
         String query = "SELECT * FROM appointments WHERE (MONTH(?) = MONTH(Start)) AND (YEAR(?) = YEAR(Start));";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
        // Timestamp ts = Timestamp.valueOf(LocalDateTime.now().format(dtf));
-        String queryPara = (LocalDateTime.now().format(dtf));
+        String queryPara = (LocalDateTime.now().format(TimeChecks.dtf));
         //System.out.println(queryPara);
         ps.setString(1, queryPara);
         ps.setString(2, queryPara);
@@ -108,8 +105,8 @@ public class AppointmentQuery {
 
         String query = "SELECT * FROM appointments WHERE (WEEK(?) = WEEK(start)) AND (WEEK(?) = WEEK(start));";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
-        ps.setString(1, (LocalDateTime.now()).format(dtf));
-        ps.setString(2, (LocalDateTime.now()).format(dtf));
+        ps.setString(1, (LocalDateTime.now()).format(TimeChecks.dtf));
+        ps.setString(2, (LocalDateTime.now()).format(TimeChecks.dtf));
 
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

@@ -1,10 +1,11 @@
-package lgarn67.appointmentapp;
+package lgarn67.appointmentapp.model;
 
-public class Contact {
+public class Country {
+
     private int id;
     private String name;
 
-    public Contact(int id, String name) {
+    public Country(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -24,8 +25,10 @@ public class Contact {
     public void setName(String name) {
         this.name = name;
     }
+
     @Override
     public String toString() {
-        return (id + " | " + name);
+        return name;
     }
+
 }

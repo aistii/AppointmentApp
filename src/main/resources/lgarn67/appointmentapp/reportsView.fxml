@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="858.0" maxWidth="1500.0" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.reports_ctlr">
+   <children>
+      <AnchorPane fx:id="sidebar" prefHeight="700.0" prefWidth="132.0">
+         <children>
+            <VBox alignment="CENTER" layoutY="168.0" prefHeight="363.0" prefWidth="175.0" styleClass="sidebarButtonC">
+               <children>
+                  <Button fx:id="SBCustomerBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Customer">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="SBApptBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Appointments" />
+                  <Button fx:id="SBReportBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Reports" />
+                  <Button fx:id="SBExitBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Exit" />
+               </children>
+            </VBox>
+            <Label layoutX="10.0" layoutY="78.0" prefHeight="89.0" prefWidth="160.0" styleClass="title" text="Appointment Scheduler" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="187.0" layoutY="32.0" styleClass="viewHeader" text="Reports View" />
+      <TableView fx:id="MonthTypeTable" layoutX="187.0" layoutY="99.0" prefHeight="200.0" prefWidth="369.0" styleClass="reportTable">
+        <columns>
+          <TableColumn fx:id="MT_MonthCol" prefWidth="125.0" text="Month" />
+          <TableColumn fx:id="MT_TypeCol" prefWidth="150.0" text="Type" />
+            <TableColumn fx:id="MT_CountCol" prefWidth="75.0" text="Count" />
+        </columns>
+      </TableView>
+      <Label layoutX="187.0" layoutY="55.0" prefHeight="44.0" prefWidth="309.0" style="-fx-font-size: 16px;" styleClass="viewHeader" text="Appointment Count by Month and Type" />
+      <TableView fx:id="ContactSchTable" layoutX="183.0" layoutY="386.0" prefHeight="300.0" prefWidth="1296.0" styleClass="smallerTextTable">
+         <columns>
+            <TableColumn fx:id="Contact_ApptIDCol" prefWidth="100.0" text="Appt. ID" />
+            <TableColumn fx:id="Contact_CustIDCol" prefWidth="100.0" text="Cust. ID" />
+            <TableColumn fx:id="Contact_TitleCol" prefWidth="175.0" text="Title" />
+            <TableColumn fx:id="Contact_TypeCol" prefWidth="150.0" text="Type" />
+            <TableColumn fx:id="Contact_DescCol" prefWidth="350.0" text="Description" />
+            <TableColumn fx:id="Contact_StartCol" prefWidth="200.0" text="Start Date Time" />
+            <TableColumn fx:id="Contact_EndCol" prefWidth="200.0" text="End Date Time" />
+         </columns>
+      </TableView>
+      <Label layoutX="183.0" layoutY="337.0" prefHeight="44.0" prefWidth="175.0" style="-fx-font-size: 16px;" styleClass="viewHeader" text="Schedule for Contact:" />
+      <ComboBox fx:id="ContactCombo" layoutX="358.0" layoutY="344.0" onAction="#onContactSelected" prefHeight="29.0" prefWidth="241.0" promptText="Select a contact..." />
+      <Label layoutX="637.0" layoutY="55.0" prefHeight="44.0" prefWidth="309.0" style="-fx-font-size: 16px;" styleClass="viewHeader" text="Customer Count by First-Level Division" />
+      <TableView fx:id="CustFLDTable" layoutX="637.0" layoutY="99.0" prefHeight="200.0" prefWidth="617.0" styleClass="reportTable">
+         <columns>
+            <TableColumn fx:id="CustFLD_CountryCol" prefWidth="200.0" text="Country" />
+            <TableColumn fx:id="CustFLD_FLDCol" prefWidth="200.0" text="First-Level Division" />
+            <TableColumn fx:id="CustFLD_NumCol" prefWidth="200.0" text="Number of Customers" />
+         </columns>
+      </TableView>
+      <HBox layoutX="1279.0" layoutY="92.0" prefHeight="60.0" prefWidth="200.0" styleClass="btnControls">
+         <children>
+            <Button fx:id="RefreshButton" mnemonicParsing="false" onAction="#onClickRefresh" text="Refresh Reports" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

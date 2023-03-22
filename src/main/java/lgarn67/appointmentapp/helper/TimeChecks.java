@@ -1,12 +1,12 @@
-package lgarn67.appointmentapp.conversion;
+package lgarn67.appointmentapp.helper;
 
-import lgarn67.appointmentapp.Appointment;
 import lgarn67.appointmentapp.controller.alert_ctlr;
 import lgarn67.appointmentapp.dao.AppointmentQuery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class TimeChecks {
@@ -26,6 +26,8 @@ public class TimeChecks {
     private static ZoneId utcZoneId = ZoneId.of("UTC");
     private static ZoneId localZoneId = ZoneId.systemDefault();
     private static ZoneId eastZoneId = ZoneId.of("US/Eastern");
+
+    public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Takes in the ZDT from Start Date and Time section
     public static boolean checkStartingTime(ZonedDateTime userStartTime) {
@@ -210,5 +212,6 @@ public class TimeChecks {
     public static boolean evalSoon (long timeDiff) {
         return (0 < timeDiff && timeDiff <= 15);
     }
+
 }
 

@@ -1,26 +1,19 @@
 package lgarn67.appointmentapp.controller;
 
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import lgarn67.appointmentapp.App;
-import lgarn67.appointmentapp.Appointment;
-import lgarn67.appointmentapp.Working;
+import lgarn67.appointmentapp.helper.TimeChecks;
+import lgarn67.appointmentapp.model.Appointment;
+import lgarn67.appointmentapp.model.Working;
 import lgarn67.appointmentapp.dao.AppointmentQuery;
 import lgarn67.appointmentapp.dao.CustomerQuery;
 
@@ -28,7 +21,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -40,7 +32,7 @@ public class appointment_ctlr implements Initializable {
         Node weekTabCont = WeekApptTab.getContent();
         MonthAppointmentTable = (TableView<Appointment>) monthTabCont.lookup("#MonthAppointmentTable");
         WeekAppointmentTable = (TableView<Appointment>) weekTabCont.lookup("#WeekAppointmentTable");*/
-        Timestamp ts = Timestamp.valueOf(LocalDateTime.now().format(AppointmentQuery.dtf));
+        Timestamp ts = Timestamp.valueOf(LocalDateTime.now().format(TimeChecks.dtf));
        // System.out.println("Local Date Time of now: " + LocalDateTime.now());
         //System.out.println("Timestamp of now: " + ts);
         try {
@@ -98,6 +90,52 @@ public class appointment_ctlr implements Initializable {
         WeekAppt_CustID.setCellValueFactory(cust -> new SimpleStringProperty(Integer.toString(cust.getValue().getCustomer().getId())));
         //WeekAppt_UserID.setCellValueFactory(new PropertyValueFactory<>("userId"));
         WeekAppt_UserID.setCellValueFactory(user -> new SimpleStringProperty(Integer.toString(user.getValue().getUser().getId())));
+
+        ApptAddBtn.setOnAction(e -> {
+            stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/addAppt.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
+        });
+
+        SBApptBtn.setOnAction(e -> {
+            stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/appointmentsView.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
+        });
+
+        SBCustomerBtn.setOnAction(e -> {
+            stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
+        });
+        SBReportBtn.setOnAction(e -> {
+            stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/reportsView.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
+        });
+
+        SBExitBtn.setOnAction(e -> Platform.exit());
+
     }
     Stage stage;
     Parent scene;
@@ -148,26 +186,28 @@ public class appointment_ctlr implements Initializable {
     @FXML private TableColumn<Appointment, String> WeekAppt_UserID;
 
 
-    @FXML void clickAddAppt(ActionEvent event) throws IOException {
+    /*@FXML void clickAddAppt(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/addAppt.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    }
+    }*/
 
-    @FXML void clickApptBtn(ActionEvent event) throws IOException {
+
+
+    /*@FXML void clickApptBtn(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/appointmentsView.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    }
+    }*/
 
-    @FXML void clickCustBtn(ActionEvent event) throws IOException {
+    /*@FXML void clickCustBtn(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    }
+    }*/
 
     @FXML void clickDelAppt(ActionEvent event) {
         try {
@@ -258,7 +298,12 @@ public class appointment_ctlr implements Initializable {
             }
 
         } catch (Exception ex) {
-
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert_ctlr.loadDialogStyle(alert);
+            alert.setTitle("No Appointment Selected");
+            alert.setHeaderText("No Appointment Selected");
+            alert.setContentText("Please select an appointment to cancel.");
+            alert.showAndWait();
         }
     }
 
@@ -299,9 +344,9 @@ public class appointment_ctlr implements Initializable {
         }
     }
 
-    @FXML void clickSBEXit(ActionEvent event) {
+    /*@FXML void clickSBEXit(ActionEvent event) {
         Platform.exit();
     }
-
+*/
 
 }

@@ -1,18 +1,11 @@
-package lgarn67.appointmentapp;
+package lgarn67.appointmentapp.model;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import lgarn67.appointmentapp.Appointment;
-import lgarn67.appointmentapp.Customer;
 
-import java.io.IOException;
+import java.time.Month;
 
 public class Working {
     static Stage stage;
@@ -30,6 +23,9 @@ public class Working {
     private static ObservableList<Appointment> weekAppt = FXCollections.observableArrayList();
     private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
+    private static ObservableList<FLDReport> fldReport = FXCollections.observableArrayList();
+    private static ObservableList<MonthTypeReport> mtReport = FXCollections.observableArrayList();
+
 
     private static int loggedInId;
     public static int getLoggedInId() {
@@ -188,6 +184,29 @@ public class Working {
         weekAppt.clear();
     }
 
+    public static ObservableList<FLDReport> getFldReport() {
+        return fldReport;
+    }
+
+    public static void addToFLDRep(FLDReport row) {
+        fldReport.add(row);
+    }
+
+    public static void resetFLDRep() {
+        fldReport.clear();
+    }
+
+    public static ObservableList<MonthTypeReport> getMtReport() {
+        return mtReport;
+    }
+
+    public static void addToMTRep(MonthTypeReport row) {
+        mtReport.add(row);
+    }
+
+    public static void resetMTRep() {
+        mtReport.clear();
+    }
 
     /*  =======================================
      *  ====== USER AND CONTACT METHODS  ======

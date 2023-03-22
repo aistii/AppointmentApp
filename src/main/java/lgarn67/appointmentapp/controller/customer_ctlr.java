@@ -10,8 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import lgarn67.appointmentapp.Customer;
-import lgarn67.appointmentapp.Working;
+import lgarn67.appointmentapp.model.Customer;
+import lgarn67.appointmentapp.model.Working;
 import lgarn67.appointmentapp.dao.CustomerQuery;
 
 import java.io.IOException;
@@ -40,9 +40,57 @@ public class customer_ctlr implements Initializable {
         CustFLDCol.setCellValueFactory(new PropertyValueFactory<>("fld"));
 
         CustTable.getSelectionModel().clearSelection();
+
+        SBApptBtn.setOnAction(e -> {
+            stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/appointmentsView.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
+        });
+
+        SBCustomerBtn.setOnAction(e -> {
+            stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
+        });
+        SBReportBtn.setOnAction(e -> {
+            stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/reportsView.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
+        });
+
+        CustAddBtn.setOnAction(e -> {
+            stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            try {
+                scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/addCust.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            stage.setScene(new Scene(scene));
+            stage.show();
+        });
+        SBExitBtn.setOnAction(e -> Platform.exit());
     }
     Stage stage;
     Parent scene;
+    @FXML private Button SBCustomerBtn;
+    @FXML private Button SBApptBtn;
+    @FXML private Button SBExitBtn;
+    @FXML private Button SBReportBtn;
     @FXML private Button CustAddBtn;
     @FXML private Button CustEditBtn;
     @FXML private Button CustRemBtn;
@@ -58,7 +106,7 @@ public class customer_ctlr implements Initializable {
 
 
 
-    @FXML public void clickCustBtn(ActionEvent e) throws IOException {
+    /*@FXML public void clickCustBtn(ActionEvent e) throws IOException {
         stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
         stage.setScene(new Scene(scene));
@@ -81,7 +129,7 @@ public class customer_ctlr implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/appointmentsView.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    }
+    }*/
 
     @FXML public void clickEditCust(ActionEvent e) throws IOException {
         //TODO
@@ -103,6 +151,14 @@ public class customer_ctlr implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    /*@FXML
+    void goToReports(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/reportsView.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }*/
 
     @FXML public void clickDelCust(ActionEvent e) throws IOException, SQLException {
         // 2023.03.16 currently being used as a way to show dialog window.
@@ -133,16 +189,16 @@ public class customer_ctlr implements Initializable {
                 alert_ctlr.loadDialogStyle(executed);
                 executed.showAndWait();
             }
-
             CustTable.getSelectionModel().clearSelection();
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert_ctlr.loadDialogStyle(alert);
             alert.setTitle("No Customer Selected");
             alert.setHeaderText("No Customer Selected");
             alert.setContentText("Please select a customer to delete.");
+            alert.showAndWait();
         }
     }
 

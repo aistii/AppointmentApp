@@ -1,7 +1,7 @@
 package lgarn67.appointmentapp.dao;
 
-import lgarn67.appointmentapp.Country;
-import lgarn67.appointmentapp.Working;
+import lgarn67.appointmentapp.model.Country;
+import lgarn67.appointmentapp.model.Working;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

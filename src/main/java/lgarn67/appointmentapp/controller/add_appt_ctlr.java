@@ -14,12 +14,14 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import javafx.util.converter.FormatStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
-import lgarn67.appointmentapp.Contact;
-import lgarn67.appointmentapp.Customer;
-import lgarn67.appointmentapp.User;
-import lgarn67.appointmentapp.Working;
-import lgarn67.appointmentapp.conversion.TimeChecks;
+import lgarn67.appointmentapp.model.Contact;
+import lgarn67.appointmentapp.model.Customer;
+import lgarn67.appointmentapp.model.User;
+import lgarn67.appointmentapp.model.Working;
+import lgarn67.appointmentapp.helper.TimeChecks;
 import lgarn67.appointmentapp.dao.AppointmentQuery;
 import lgarn67.appointmentapp.dao.ContactQuery;
 import lgarn67.appointmentapp.dao.CustomerQuery;
@@ -27,8 +29,9 @@ import lgarn67.appointmentapp.dao.UserQuery;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.text.NumberFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -111,7 +114,6 @@ public class add_appt_ctlr implements Initializable {
         custField.setItems(Working.getAllCustomers());
         contactField.setItems(Working.getAllContacts());
         userField.setItems(Working.getAllUsers());
-
     }
 
 

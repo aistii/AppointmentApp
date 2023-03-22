@@ -17,10 +17,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 
-import lgarn67.appointmentapp.Working;
-import lgarn67.appointmentapp.conversion.TimeChecks;
-import lgarn67.appointmentapp.dao.CustomerQuery;
+import lgarn67.appointmentapp.model.Working;
+import lgarn67.appointmentapp.helper.TimeChecks;
 import lgarn67.appointmentapp.dao.loginConnect;
+import lgarn67.appointmentapp.helper.Logger;
 
 public class login_ctlr implements Initializable {
 
@@ -55,6 +55,7 @@ public class login_ctlr implements Initializable {
         String attemptPWord = pwdField.getText();
 
         if ((uNameField.getText() == null) || pwdField.getText() == null) {
+            Logger.appendLog(null, LocalDateTime.now(), false);
             uNameError.setVisible(true);
             pWordError.setVisible(true);
         } else {
@@ -63,6 +64,9 @@ public class login_ctlr implements Initializable {
                 String fetchedUsername = loginConnect.fetchUsername(attemptUName, attemptPWord);
                 Working.setLoggedInId(fetchedUserId);// will pass to screen
                 Working.setLoggedInName(fetchedUsername);
+                //TODO
+                // CALL TO THE LOGGER CLASS TO APPEND LOGIN BEFORE SCENE CHANGE!
+                Logger.appendLog(fetchedUsername, LocalDateTime.now(), true);
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
                 stage.setScene(new Scene(scene));
@@ -70,6 +74,7 @@ public class login_ctlr implements Initializable {
                 LocalDateTime loginTime = LocalDateTime.now();
                 TimeChecks.checkSoonAppt(loginTime); // triggers a chain reaction of events to show soon appointment
             } else {
+                Logger.appendLog(attemptUName, LocalDateTime.now(), false);
                 uNameError.setVisible(true);
                 pWordError.setVisible(true);
             }

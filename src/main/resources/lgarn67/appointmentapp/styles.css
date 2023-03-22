@@ -488,3 +488,22 @@ and time zone display
 .context-menu .separator:horizontal .line {
     -fx-background-color: #383C4A;
 }
+
+/* Report View Tableview adjustments */
+.reportTable .table-cell { 
+    -fx-text-fill: #E3E9FC;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+}
+
+.reportTable .table-row-cell {
+    -fx-cell-size: 30px;
+}
+
+.smallerTextTable .table-cell {
+    -fx-font-size: 12px;
+}
+
+.smallerTextTable .table-row-cell {
+    -fx-cell-size: 30px;
+}

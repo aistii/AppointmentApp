@@ -11,40 +11,40 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="700.0" maxWidth="1500.0" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.appointment_ctlr">
+<AnchorPane maxHeight="700.0" maxWidth="1500.0" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.appointment_ctlr">
    <children>
       <AnchorPane fx:id="sidebar" prefHeight="700.0" prefWidth="132.0">
          <children>
             <VBox alignment="CENTER" layoutY="168.0" prefHeight="363.0" prefWidth="175.0" styleClass="sidebarButtonC">
                <children>
-                  <Button fx:id="SBCustomerBtn" mnemonicParsing="false" onAction="#clickCustBtn" prefWidth="175.0" styleClass="sidebarBtn" text="Customer">
+                  <Button fx:id="SBCustomerBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Customer">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="SBApptBtn" mnemonicParsing="false" onAction="#clickApptBtn" prefWidth="175.0" styleClass="sidebarBtn" text="Appointments" />
+                  <Button fx:id="SBApptBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Appointments" />
                   <Button fx:id="SBReportBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Reports" />
-                  <Button fx:id="SBExitBtn" mnemonicParsing="false" onAction="#clickSBEXit" prefWidth="175.0" styleClass="sidebarBtn" text="Exit" />
+                  <Button fx:id="SBExitBtn" mnemonicParsing="false" prefWidth="175.0" styleClass="sidebarBtn" text="Exit" />
                </children>
             </VBox>
             <Label layoutX="10.0" layoutY="78.0" prefHeight="89.0" prefWidth="160.0" styleClass="title" text="Appointment Scheduler" textAlignment="CENTER" wrapText="true" />
          </children>
       </AnchorPane>
-      <Label layoutX="187.0" layoutY="111.0" styleClass="viewHeader" text="Appointment View" />
-      <HBox layoutX="932.0" layoutY="86.0" prefHeight="60.0" prefWidth="333.0" styleClass="btnControls">
+      <Label layoutX="187.0" layoutY="33.0" styleClass="viewHeader" text="Appointment View" />
+      <HBox layoutX="932.0" layoutY="14.0" prefHeight="60.0" prefWidth="333.0" styleClass="btnControls">
          <children>
-            <Button fx:id="ApptAddBtn" mnemonicParsing="false" onAction="#clickAddAppt" text="Add" />
+            <Button fx:id="ApptAddBtn" mnemonicParsing="false" text="Add" />
             <Button fx:id="ApptEditBtn" mnemonicParsing="false" onAction="#clickEditAppt" text="Edit" />
             <Button fx:id="ApptRemBtn" mnemonicParsing="false" onAction="#clickDelAppt" text="Remove" />
          </children>
       </HBox>
-      <TabPane fx:id="AppointmentTabPane" layoutX="187.0" layoutY="150.0" prefHeight="537.0" prefWidth="1303.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="AppointmentTabPane" layoutX="187.0" layoutY="74.0" prefHeight="616.0" prefWidth="1303.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="AllApptTab" closable="false" text="All Appointments">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="AllAppointmentsTable" layoutX="4.0" layoutY="2.0" prefHeight="499.0" prefWidth="1295.0">
+                        <TableView fx:id="AllAppointmentsTable" layoutX="4.0" layoutY="2.0" prefHeight="575.0" prefWidth="1295.0">
                            <columns>
                               <TableColumn fx:id="AllAppt_ID" prefWidth="60.0" text="ID #" />
                               <TableColumn fx:id="AllAppt_Title" prefWidth="125.0" text="Title" />
@@ -66,7 +66,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="MonthAppointmentTable" layoutX="4.0" layoutY="2.0" prefHeight="499.0" prefWidth="1295.0">
+                        <TableView fx:id="MonthAppointmentTable" layoutX="4.0" layoutY="2.0" prefHeight="575.0" prefWidth="1295.0">
                            <columns>
                               <TableColumn fx:id="MonthAppt_ID" prefWidth="60.0" text="ID #" />
                               <TableColumn fx:id="MonthAppt_Title" prefWidth="125.0" text="Title" />
@@ -87,7 +87,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="WeekAppointmentTable" layoutX="4.0" layoutY="2.0" prefHeight="499.0" prefWidth="1295.0">
+                        <TableView fx:id="WeekAppointmentTable" layoutX="4.0" layoutY="2.0" prefHeight="575.0" prefWidth="1295.0">
                            <columns>
                               <TableColumn fx:id="WeekAppt_ID" prefWidth="60.0" text="ID #" />
                               <TableColumn fx:id="WeekAppt_Title" prefWidth="125.0" text="Title" />

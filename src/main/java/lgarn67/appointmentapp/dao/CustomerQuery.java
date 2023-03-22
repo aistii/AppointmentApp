@@ -1,18 +1,13 @@
 package lgarn67.appointmentapp.dao;
 
-import javafx.collections.ObservableList;
-import lgarn67.appointmentapp.Country;
-import lgarn67.appointmentapp.Customer;
-import lgarn67.appointmentapp.Division;
-import lgarn67.appointmentapp.Working;
+import lgarn67.appointmentapp.model.Country;
+import lgarn67.appointmentapp.model.Customer;
+import lgarn67.appointmentapp.model.Division;
+import lgarn67.appointmentapp.model.Working;
 
-import javax.xml.transform.Result;
-import java.security.cert.CertificateParsingException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 public class CustomerQuery {
     //TODO

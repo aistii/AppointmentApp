@@ -14,12 +14,12 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import lgarn67.appointmentapp.*;
-import lgarn67.appointmentapp.conversion.TimeChecks;
+import lgarn67.appointmentapp.helper.TimeChecks;
 import lgarn67.appointmentapp.dao.AppointmentQuery;
 import lgarn67.appointmentapp.dao.ContactQuery;
 import lgarn67.appointmentapp.dao.CustomerQuery;
 import lgarn67.appointmentapp.dao.UserQuery;
+import lgarn67.appointmentapp.model.*;
 
 import java.io.IOException;
 import java.net.URL;

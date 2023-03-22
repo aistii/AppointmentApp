@@ -23,6 +23,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        System.out.println("User Id: 1\t\t Username: admin\t\t LoginTime: 2023-03-21T12:00 UTC\t Fail");
         dbconnection.openConnection();
         if ((Locale.getDefault()).toString().equals("fr")) {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"), rbFR);

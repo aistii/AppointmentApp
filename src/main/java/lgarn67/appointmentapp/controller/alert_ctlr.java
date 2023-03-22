@@ -2,11 +2,9 @@ package lgarn67.appointmentapp.controller;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
-import javafx.scene.*;
-import lgarn67.appointmentapp.Working;
-import lgarn67.appointmentapp.conversion.TimeChecks;
+import lgarn67.appointmentapp.model.Working;
+import lgarn67.appointmentapp.helper.TimeChecks;
 import lgarn67.appointmentapp.dao.AppointmentQuery;
-import lgarn67.appointmentapp.dao.loginConnect;
 
 import java.time.ZonedDateTime;
 
@@ -32,8 +30,8 @@ public class alert_ctlr {
             alert.setHeaderText("Welcome! There is an appointment starting within 15 minutes.");
             alert.setContentText("Hello, " + Working.getLoggedInName() + ". " +
                     "Appointment #" + apptId + " starts soon!\n"+
-                    "Start Time: " + localizedStart.toLocalDateTime().format(AppointmentQuery.dtf) +"\n" +
-                    "End Time: " + localizedEnd.toLocalDateTime().format(AppointmentQuery.dtf));
+                    "Start Time: " + localizedStart.toLocalDateTime().format(TimeChecks.dtf) +"\n" +
+                    "End Time: " + localizedEnd.toLocalDateTime().format(TimeChecks.dtf));
             alert.showAndWait();
         } else {
             //System.out.println("no appointments soon <3");

@@ -1,4 +1,4 @@
-package lgarn67.appointmentapp;
+package lgarn67.appointmentapp.model;
 
 import java.time.LocalDateTime;
 
