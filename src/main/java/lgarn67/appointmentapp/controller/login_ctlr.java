@@ -8,8 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
+import lgarn67.appointmentapp.dao.loginConnect;
+import lgarn67.appointmentapp.helper.Logger;
+import lgarn67.appointmentapp.helper.TimeChecks;
+import lgarn67.appointmentapp.model.Working;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,13 +22,14 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 
-import lgarn67.appointmentapp.model.Working;
-import lgarn67.appointmentapp.helper.TimeChecks;
-import lgarn67.appointmentapp.dao.loginConnect;
-import lgarn67.appointmentapp.helper.Logger;
-
+/**
+ * The controller for the login scene.
+ */
 public class login_ctlr implements Initializable {
 
+    /**
+     * Initializes the scene with the user's computer's local time zone label and sets the username and passwords field to null.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZoneId detectedZone = ZoneId.systemDefault();
@@ -31,26 +37,43 @@ public class login_ctlr implements Initializable {
         uNameField.setText(null);
         pwdField.setText(null);
     }
+
+    /**
+     * The Stage/stage.
+     */
     Stage stage;
+    /**
+     * The Scene/view.
+     */
     Parent scene;
-    @FXML private static Button loginBtn;
-    @FXML private static Label loginTitle;
+    /**
+     * The error message for password field.
+     */
     @FXML private Label pWordError;
-    @FXML private static Label passWordTitle;
+    /**
+     * The password field.
+     */
     @FXML private  TextField pwdField;
-    @FXML private static Label timeZoneHeader;
+    /**
+     * The label to display user's current time zone.
+     */
     @FXML private Label timeZoneLabel;
+    /**
+     * The error message for username field.
+     */
     @FXML private Label uNameError;
+    /**
+     * The username field.
+     */
     @FXML private TextField uNameField;
-    @FXML private static Label userNameTitle;
 
-    // static ResourceBundle rbFR = ResourceBundle.getBundle("language_fr");
-    // static ResourceBundle rbEN = ResourceBundle.getBundle("language_en");
-
-    // clickLogin() will verify the log in and change the scenes, and also populate the first table we go to
-    // which is in the customer view.
+    /**
+     * Checks to see if the login information the user entered matches a row against the database.
+     * It will log any login attempts in a login_activity file.
+     * It will check for appointments to begin within the next 15 minutes and alert the user if there is.
+     * If there are no appointments within the 15 minutes of login, the alert will reflect that.
+     */
     @FXML void clickLogin(ActionEvent event) throws IOException, SQLException {
-        // The order of things that happen:
         String attemptUName = uNameField.getText();
         String attemptPWord = pwdField.getText();
 
@@ -62,17 +85,15 @@ public class login_ctlr implements Initializable {
             if (loginConnect.checkLogin(attemptUName, attemptPWord)) {
                 int fetchedUserId = loginConnect.fetchId(attemptUName, attemptPWord);
                 String fetchedUsername = loginConnect.fetchUsername(attemptUName, attemptPWord);
-                Working.setLoggedInId(fetchedUserId);// will pass to screen
+                Working.setLoggedInId(fetchedUserId);
                 Working.setLoggedInName(fetchedUsername);
-                //TODO
-                // CALL TO THE LOGGER CLASS TO APPEND LOGIN BEFORE SCENE CHANGE!
                 Logger.appendLog(fetchedUsername, LocalDateTime.now(), true);
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/lgarn67/appointmentapp/customerView.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.show();
                 LocalDateTime loginTime = LocalDateTime.now();
-                TimeChecks.checkSoonAppt(loginTime); // triggers a chain reaction of events to show soon appointment
+                TimeChecks.checkSoonAppt(loginTime);
             } else {
                 Logger.appendLog(attemptUName, LocalDateTime.now(), false);
                 uNameError.setVisible(true);

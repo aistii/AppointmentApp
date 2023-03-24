@@ -9,18 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for queries regarding the customers table in the database.
+ */
 public class CustomerQuery {
-    //TODO
-    // Add
-    // Remove
-    // Update
-    // Read
-
-    /*
-        === SELECTION SECTION
+    /**
+     * Selects all of the customers from the database and then adds them to the Observable List in the working class.
      */
     public static void selectAll() throws SQLException {
-        // Selecting details from customres
         String query = "SELECT * FROM customers;";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
         ResultSet rsetC = ps.executeQuery();
@@ -31,15 +27,19 @@ public class CustomerQuery {
             String cPostCode = rsetC.getString("Postal_Code");
             String cPhoneNum = rsetC.getString("Phone");
             int cDivId = rsetC.getInt("Division_ID");
-            //String[] ctryAndFLD = findDivisionCountry(cDivId);
             Country cCountry = CountryQuery.getCustCtry(cDivId);
             Division cDiv = DivisionQuery.getCustDiv(cDivId);
-
-            // index 0 would be the country, index 1 is the division
             Working.addCustomer(new Customer(id, cName, cAddress, cPhoneNum, cCountry, cDiv, cPostCode));
         }
     }
 
+    /**
+     * Selects the customer from the row selected in the customer view TableView.
+     * Used to retrieve values to load into the edit customer form.
+     *
+     * @param custId the customer's id
+     * @return the customer
+     */
     public static Customer selectCustomer(int custId) throws SQLException{
         String query = "SELECT Customer_Name, Address, Postal_Code, Phone, Division_ID " +
                 "FROM customers " +
@@ -58,32 +58,15 @@ public class CustomerQuery {
         return (new Customer(custId, cName, cAddr, cPhone, cCountry, cDiv, cPost));
 
     }
-    // this join statement i feel should stay in customer...
-    /*public static String[] findDivisionCountry (int divisionId) throws SQLException {
-        String[] location = new String[0];
-        try {
-            location = new String[2];
-            String query = "SELECT countries.country, first_level_divisions.Division\n" +
-                    "FROM first_level_divisions\n" +
-                    "JOIN countries on countries.COUNTRY_ID = first_level_divisions.COUNTRY_ID\n" +
-                    "WHERE first_level_divisions.Division_ID = ?;";
-            PreparedStatement ps = dbconnection.connection.prepareStatement(query);
-            ps.setInt(1, divisionId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                location[0] =  rs.getString("country");
-                location[1] = rs.getString("Division");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return location;
-    }*/
-    /*
-        === ADD A CUSTOMER SECTION ===
-        * It will have many parameters uhoh
+    /**
+     * Inserts a customer into the database.
+     *
+     * @param name    the customer's name
+     * @param address the customer's address
+     * @param postal  the customer's postal
+     * @param phone   the customer's phone
+     * @param fldId   the customer's first-level division id
      */
-
     public static void insertCustomer(String name, String address, String postal, String phone, int fldId) throws SQLException {
         String query = "INSERT INTO customers " +
         "(Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) " +
@@ -98,16 +81,27 @@ public class CustomerQuery {
         ps.setInt(7, fldId);
         ps.executeUpdate();
     }
+
+    /**
+     * Updates a customer in the database.
+     *
+     * @param custId the customer's id
+     * @param cName  the customer's updated name
+     * @param cAddr  the customer's updated addr
+     * @param cPost  the customer's updated post
+     * @param cPhone the customer's updated phone
+     * @param fldId  the customer's first-level division id
+     */
     public static void updateCustomer(int custId, String cName, String cAddr, String cPost, String cPhone, int fldId) throws SQLException {
         String query = "UPDATE customers " +
-                "SET Customer_Name = ?," + //1
-                "Address = ?," + //2
-                "Postal_Code = ?," + //3
-                "Phone = ?," + //4
+                "SET Customer_Name = ?," +
+                "Address = ?," +
+                "Postal_Code = ?," +
+                "Phone = ?," +
                 "Last_Update = NOW()," +
-                "Last_Updated_By = ?," + //5
-                "Division_ID = ? " +//6
-                "WHERE Customer_ID = ?"; //7
+                "Last_Updated_By = ?," +
+                "Division_ID = ? " +
+                "WHERE Customer_ID = ?";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
         ps.setString(1, cName);
         ps.setString(2, cAddr);
@@ -119,6 +113,11 @@ public class CustomerQuery {
         ps.executeUpdate();
     }
 
+    /**
+     * Deletes a customer from the database; it will first delete any appointments associated with the customer.
+     *
+     * @param custId the customer's id
+     */
     public static void deleteCustomer(int custId) throws SQLException {
         AppointmentQuery.delCustAppts(custId);
         String query = "DELETE FROM customers WHERE Customer_ID = ?;";

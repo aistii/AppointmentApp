@@ -28,11 +28,19 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the edit appointment view.
+ */
 public class edit_appt_ctlr implements Initializable {
+    /**
+     * Fetches the list of contacts, users, and customers;
+     * sets the time zone label to reflect the one the user is in;
+     * converts the date in datepicker to desired format.
+     * Clears the spinners before input is added. Additionally loads the selected appointments details in.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            // You should reset every time a page loads
             Working.resetContacts();
             Working.resetUsers();
             Working.resetCustomers();
@@ -40,12 +48,9 @@ public class edit_appt_ctlr implements Initializable {
             UserQuery.selectAllUsers();
             CustomerQuery.selectAll();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         timeZoneLabel.setText(String.valueOf(TimeChecks.getLocalZoneId()));
-
-        //Converts will change the way its formatted.
         startDate.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
@@ -82,17 +87,6 @@ public class edit_appt_ctlr implements Initializable {
                 }
             }
         });
-        startHour.getValueFactory().setConverter(new StringConverter<Integer>() {
-            @Override
-            public String toString(Integer integer) {
-                return null;
-            }
-
-            @Override
-            public Integer fromString(String s) {
-                return null;
-            }
-        });
 
         custField.setItems(Working.getAllCustomers());
         contactField.setItems(Working.getAllContacts());
@@ -113,61 +107,179 @@ public class edit_appt_ctlr implements Initializable {
         endMinute.getValueFactory().setValue(loadedEnd.toLocalTime().getMinute());
     }
 
+    /**
+     * The Stage/stage.
+     */
     Stage stage;
+    /**
+     * The Scene/scene.
+     */
     Parent scene;
+    /**
+     * The appointment ID field.
+     */
     @FXML private TextField idField;
+    /**
+     * The cancel button.
+     */
     @FXML private Button CancelBtn;
+    /**
+     * The save button.
+     */
     @FXML private Button SaveBtn;
+    /**
+     * The contact error message label.
+     */
     @FXML private Label contErrMsg;
+    /**
+     * The contact combo box.
+     */
     @FXML private ComboBox<Contact> contactField;
+    /**
+     * The customer error message label.
+     */
     @FXML private Label custErrMsg;
+    /**
+     * The customer combo box.
+     */
     @FXML private ComboBox<Customer> custField;
+    /**
+     * The description error message label.
+     */
     @FXML private Label descErrMsg;
+    /**
+     * The description textarea.
+     */
     @FXML private TextArea descField;
+    /**
+     * The datepicker for the end date.
+     */
     @FXML private DatePicker endDate;
+    /**
+     * The end date error message label.
+     */
     @FXML private Label endErrMsg;
+    /**
+     * The spinner for the ending hour.
+     */
     @FXML private Spinner<Integer> endHour;
+    /**
+     * The spinner for the ending minute.
+     */
     @FXML private Spinner<Integer> endMinute;
+    /**
+     * The location error message label.
+     */
     @FXML private Label locErrMsg;
+    /**
+     * The location text field.
+     */
     @FXML private TextField locField;
+    /**
+     * The datepicker for the start date.
+     */
     @FXML private DatePicker startDate;
+    /**
+     * The start date error message label.
+     */
     @FXML private Label startErrMsg;
+    /**
+     * The spinner for the starting hour.
+     */
     @FXML private Spinner<Integer> startHour;
+    /**
+     * The spinner for the starting minute.
+     */
     @FXML private Spinner<Integer> startMin;
+    /**
+     * The title error message label.
+     */
     @FXML private Label titleErrMsg;
+    /**
+     * The title text field.
+     */
     @FXML private TextField titleField;
+    /**
+     * The type error message label.
+     */
     @FXML private Label typeErrMsg;
+    /**
+     * The type text field.
+     */
     @FXML private TextField typeField;
+    /**
+     * The user error message.
+     */
     @FXML private Label userErrMsg;
+    /**
+     * The user combo box.
+     */
     @FXML private ComboBox<User> userField;
+    /**
+     * The time label to display user's local time zone.
+     */
     @FXML private Label timeZoneLabel;
+    /**
+     * The border style used to denote that a field has an error.
+     */
     Border errorStyle = new Border(new BorderStroke(Color.valueOf("#EF596F"), BorderStrokeStyle.SOLID, null, new BorderWidths(1)));
+    /**
+     * The "default" (errorless) style used on fields if errorStyle had been applied prior.
+     */
     Border clearStyle = new Border(new BorderStroke(new Color(0,0,0,0), BorderStrokeStyle.NONE, null, new BorderWidths(0)));
+    /**
+     * Formatter for the datepickers.
+     */
     DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    // loader variables
-    // note: the variables regarding time are going to have to have the hour, minute, and dates split up into respective fields.
+    /**
+     * The loaded appointment's id.
+     */
     static int loadedId;
+    /**
+     * The loaded appointment's title.
+     */
     static String loadedTitle;
+    /**
+     * The loaded appointment's description.
+     */
     static String loadedDesc;
+    /**
+     * The loaded appointment's location.
+     */
     static String loadedLoc;
+    /**
+     * The loaded appointment's type.
+     */
     static String loadedType;
+    /**
+     * The loaded appointment's start date-time.
+     */
     static LocalDateTime loadedStart;
+    /**
+     * The loaded appointment's end date-time.
+     */
     static LocalDateTime loadedEnd;
+    /**
+     * The loaded appointment's customer.
+     */
     static Customer loadedCust;
+    /**
+     * The loaded appointment's user.
+     */
     static User loadedUser;
+    /**
+     * The loaded appointment's contact.
+     */
     static Contact loadedCont;
 
-    //TODO
-    // Create a method that can translate the timestamps from the database
-    // into local date times. I'm thinking:
-    // (Database) Timestamp >> (App) ZonedDateTime >> (App) LocalDateTime
-    // UPDATE: This was done in appointment query.
-
+    /**
+     * Runs validation checks on the fields and against the business hours.
+     * If successful, it modifies the appointment in the database and returns to the appointment screen, with the updated appointment.
+     */
     @FXML void clickSaveAppt (ActionEvent event) throws SQLException {
         if (checkCompletion()){
             if (checkLength()) {
-                // some try catch for the other values
                 try {
                     LocalDate apptStartDate = LocalDate.parse(startDate.getEditor().getText(), dateFormat);
                     LocalDate apptEndDate = LocalDate.parse(endDate.getEditor().getText(), dateFormat);
@@ -177,7 +289,6 @@ public class edit_appt_ctlr implements Initializable {
                         int apptEndHr = Integer.parseInt(endHour.getEditor().getText());
                         int apptEndMin = Integer.parseInt(endMinute.getEditor().getText());
 
-                        // Make the date time stuff.
                         LocalDateTime userStartLDT = LocalDateTime.of(apptStartDate, LocalTime.of(apptStartHr, apptStartMin));
                         ZonedDateTime userStartZDT = ZonedDateTime.of(userStartLDT, TimeChecks.getLocalZoneId());
                         ZonedDateTime testUserStartEastern = userStartZDT.withZoneSameInstant(TimeChecks.getEastZoneId());
@@ -185,15 +296,11 @@ public class edit_appt_ctlr implements Initializable {
                         LocalDateTime userEndLDT = LocalDateTime.of(apptEndDate, LocalTime.of(apptEndHr, apptEndMin));
                         ZonedDateTime userEndZDT = ZonedDateTime.of(userEndLDT, TimeChecks.getLocalZoneId());
                         ZonedDateTime testUserEndEastern = userEndZDT.withZoneSameInstant(TimeChecks.getEastZoneId());
-                        //TODO
-                        // All of these messages regarding the appointment time availabilities
-                        // need to be a popup message because those are important.
+
                         if (TimeChecks.checkStartingTime(testUserStartEastern)) {
                             if (TimeChecks.checkEndingTime(testUserStartEastern, testUserEndEastern)) {
-                                System.out.println("This appointment time is valid!");
                                 int custId = custField.getSelectionModel().getSelectedItem().getId();
                                 int apptId = Integer.parseInt(idField.getText());
-                                // Get all of the fields
                                 if ((TimeChecks.checkOverlap(userStartZDT, userEndZDT, custId, apptId))) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
                                     alert_ctlr.loadDialogStyle(alert);
@@ -218,7 +325,6 @@ public class edit_appt_ctlr implements Initializable {
                                         stage.setScene(new Scene(scene));
                                         stage.show();
                                     } catch (Exception e) {
-                                        e.printStackTrace();
                                         Alert alert = new Alert(Alert.AlertType.ERROR);
                                         alert_ctlr.loadDialogStyle(alert);
                                         alert.setTitle("Error");
@@ -228,7 +334,6 @@ public class edit_appt_ctlr implements Initializable {
                                     }
                                 }
                             } else {
-                                System.out.println("This appointment end time is not within business hours!");
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert_ctlr.loadDialogStyle(alert);
                                 alert.setTitle("Error");
@@ -237,7 +342,6 @@ public class edit_appt_ctlr implements Initializable {
                                 alert.showAndWait();
                             }
                         } else {
-                            //System.out.println("This appointment start time is not within business hours!");
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert_ctlr.loadDialogStyle(alert);
                             alert.setTitle("Error");
@@ -246,19 +350,21 @@ public class edit_appt_ctlr implements Initializable {
                             alert.showAndWait();
                         }
                     } catch (NumberFormatException e) {
-                        e.printStackTrace();
                         startErrMsg.setText("Please ensure the time values are numerical.");
                         endErrMsg.setText("Please ensure the time values are numerical.");
                     }
                 } catch (Exception e) {
-                    // trying to see what errors are thrown exactly
-                    e.printStackTrace();
                     startErrMsg.setText("Please ensure date is correctly typed in.");
                 }
             }
         }
     }
 
+    /**
+     * Loads appointment data.
+     *
+     * @param selA the selected appointment from the main appointment screen.
+     */
     public static void loadData (Appointment selA) {
         loadedId = selA.getId();
         loadedTitle = selA.getTitle();
@@ -269,9 +375,12 @@ public class edit_appt_ctlr implements Initializable {
         loadedEnd = selA.getEndDateTime();
         loadedCust = selA.getCustomer();
         loadedUser = selA.getUser();
-        loadedCont = selA.getContact(); // due to this using the contact object
+        loadedCont = selA.getContact();
     }
 
+    /**
+     * Exits the edit appointment function without saving.
+     */
     @FXML void clickCancel(ActionEvent event) throws IOException {
         resetFields();
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -280,6 +389,11 @@ public class edit_appt_ctlr implements Initializable {
         stage.show();
     }
 
+    /**
+     * Checks the field lengths on text field/area; used for input validation.
+     *
+     * @return the boolean on successful validation
+     */
     public boolean checkLength () {
         int titleLength = titleField.getLength();
         int locLength = locField.getLength();
@@ -309,6 +423,11 @@ public class edit_appt_ctlr implements Initializable {
         }
     }
 
+    /**
+     * Check if the form fields have been filled out; used for input validation.
+     *
+     * @return the boolean on successful validation
+     */
     public boolean checkCompletion () {
         resetErrorMsg();
 
@@ -353,7 +472,6 @@ public class edit_appt_ctlr implements Initializable {
                     startErrMsg.setText("Please enter a start date and time.");
                 }
             } catch (NullPointerException e) {
-                //e.printStackTrace();
                 startDate.setBorder(errorStyle);
                 startHour.setBorder(errorStyle);
                 startMin.setBorder(errorStyle);
@@ -367,7 +485,6 @@ public class edit_appt_ctlr implements Initializable {
                     endErrMsg.setText("Please enter an end date and time.");
                 }
             } catch (Exception e) {
-                //e.printStackTrace();
                 endDate.setBorder(errorStyle);
                 endHour.setBorder(errorStyle);
                 endMinute.setBorder(errorStyle);
@@ -379,6 +496,9 @@ public class edit_appt_ctlr implements Initializable {
         }
     }
 
+    /**
+     * Resets the form fields.
+     */
     public void resetFields() {
         titleField.clear();
         locField.clear();
@@ -389,10 +509,6 @@ public class edit_appt_ctlr implements Initializable {
         userField.getSelectionModel().select(null);
         startDate.getEditor().clear();
         endDate.getEditor().clear();
-        // If you want to do the get text with something that's not
-        // exactly a text field but has one (like datepicker/spinner) use:
-        // endDate.getEditor().getText()
-        // for the spinners we're going to get the value in the text field.
         startHour.getEditor().clear();
         startMin.getEditor().clear();
         endHour.getEditor().clear();
@@ -403,6 +519,9 @@ public class edit_appt_ctlr implements Initializable {
         resetErrorMsg();
     }
 
+    /**
+     * Resets the errorStyle border on the fields, and removes the error message in the error labels.
+     */
     public void resetErrorMsg() {
         titleErrMsg.setText(null);
         locErrMsg.setText(null);

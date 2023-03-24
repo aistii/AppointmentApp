@@ -7,8 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for queries regarding the first-level divisions table in the database.
+ */
 public class DivisionQuery {
-    // This depends on a country ID to be passed in, most likely from what is selected in the Country combobox
+    /**
+     * Gets all of the first-level divisions that have the country ID passed in.
+     * It then populates the Observable List in the Working class.
+     *
+     * @param ctryId the country ID
+     */
     public static void getAllRelatedDivisions(int ctryId) throws SQLException {
         try {
             String query = "SELECT Division_ID, Division FROM first_level_divisions WHERE Country_ID = ?;";
@@ -21,10 +29,16 @@ public class DivisionQuery {
                 Working.addDivision(new Division(id, name));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
     }
 
+    /**
+     * Gets the division id and name from the database.
+     * This is so the name of the division may be saved into a Division object and can be displayed in the UI.
+     *
+     * @param divId the first-level division id
+     * @return the customer's first-level division
+     */
     public static Division getCustDiv (int divId) throws SQLException {
         String query = "SELECT Division_ID, Division FROM first_level_divisions WHERE Division_ID = ?;";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);

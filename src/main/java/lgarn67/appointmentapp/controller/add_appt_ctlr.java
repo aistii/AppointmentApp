@@ -14,9 +14,6 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.converter.FormatStringConverter;
-import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.NumberStringConverter;
 import lgarn67.appointmentapp.model.Contact;
 import lgarn67.appointmentapp.model.Customer;
 import lgarn67.appointmentapp.model.User;
@@ -30,20 +27,25 @@ import lgarn67.appointmentapp.dao.UserQuery;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.Format;
-import java.text.NumberFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the add appointment view.
+ */
 public class add_appt_ctlr implements Initializable {
 
+    /**
+     * Fetches the list of contacts, users, and customers;
+     * sets the time zone label to reflect the one the user is in;
+     * converts the date in datepicker to desired format.
+     * Clears the spinners before input is added.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            // You should reset every time a page loads
             Working.resetContacts();
             Working.resetUsers();
             Working.resetCustomers();
@@ -51,12 +53,10 @@ public class add_appt_ctlr implements Initializable {
             UserQuery.selectAllUsers();
             CustomerQuery.selectAll();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         timeZoneLabel.setText(String.valueOf(TimeChecks.getLocalZoneId()));
 
-        //Converts will change the way its formatted.
         startDate.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
@@ -93,64 +93,142 @@ public class add_appt_ctlr implements Initializable {
                 }
             }
         });
-        startHour.getValueFactory().setConverter(new StringConverter<Integer>() {
-            @Override
-            public String toString(Integer integer) {
-                return null;
-            }
-
-            @Override
-            public Integer fromString(String s) {
-                return null;
-            }
-        });
         startHour.getEditor().setText(null);
         startMin.getEditor().setText(null);
         endHour.getEditor().setText(null);
         endMinute.getEditor().setText(null);
 
-
-    // For combobox format, we will use the assumption in the
         custField.setItems(Working.getAllCustomers());
         contactField.setItems(Working.getAllContacts());
         userField.setItems(Working.getAllUsers());
     }
 
 
+    /**
+     * The Stage/window.
+     */
     Stage stage;
+    /**
+     * The Scene/view.
+     */
     Parent scene;
+    /**
+     * The cancel button.
+     */
     @FXML private Button CancelBtn;
+    /**
+     * The save button.
+     */
     @FXML private Button SaveBtn;
+    /**
+     * The contact error message label.
+     */
     @FXML private Label contErrMsg;
+    /**
+     * The contact combo box.
+     */
     @FXML private ComboBox<Contact> contactField;
+    /**
+     * The customer error message label.
+     */
     @FXML private Label custErrMsg;
+    /**
+     * The customer combo box.
+     */
     @FXML private ComboBox<Customer> custField;
+    /**
+     * The description error message label.
+     */
     @FXML private Label descErrMsg;
+    /**
+     * The description textarea.
+     */
     @FXML private TextArea descField;
+    /**
+     * The datepicker for the end date.
+     */
     @FXML private DatePicker endDate;
+    /**
+     * The end date error message label.
+     */
     @FXML private Label endErrMsg;
+    /**
+     * The spinner for the ending hour.
+     */
     @FXML private Spinner<Integer> endHour;
+    /**
+     * The spinner for the ending minute.
+     */
     @FXML private Spinner<Integer> endMinute;
+    /**
+     * The location error message label.
+     */
     @FXML private Label locErrMsg;
+    /**
+     * The location text field.
+     */
     @FXML private TextField locField;
+    /**
+     * The datepicker for the start date.
+     */
     @FXML private DatePicker startDate;
+    /**
+     * The start date error message label.
+     */
     @FXML private Label startErrMsg;
+    /**
+     * The spinner for the starting hour.
+     */
     @FXML private Spinner<Integer> startHour;
+    /**
+     * The spinner for the starting minute.
+     */
     @FXML private Spinner<Integer> startMin;
+    /**
+     * The title error message label.
+     */
     @FXML private Label titleErrMsg;
+    /**
+     * The title text field.
+     */
     @FXML private TextField titleField;
+    /**
+     * The type error message label.
+     */
     @FXML private Label typeErrMsg;
+    /**
+     * The type text field.
+     */
     @FXML private TextField typeField;
+    /**
+     * The user error message.
+     */
     @FXML private Label userErrMsg;
+    /**
+     * The user combo box.
+     */
     @FXML private ComboBox<User> userField;
+    /**
+     * The time label to display user's local time zone.
+     */
     @FXML private Label timeZoneLabel;
+    /**
+     * The border style used to denote that a field has an error.
+     */
     Border errorStyle = new Border(new BorderStroke(Color.valueOf("#EF596F"), BorderStrokeStyle.SOLID, null, new BorderWidths(1)));
+    /**
+     * The "default" (errorless) style used on fields if errorStyle had been applied prior.
+     */
     Border clearStyle = new Border(new BorderStroke(new Color(0,0,0,0), BorderStrokeStyle.NONE, null, new BorderWidths(0)));
+    /**
+     * Formatter for the datepickers.
+     */
     DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
-
-
+    /**
+     * Exits the add appointment function without saving.
+     */
     @FXML void clickCancel(ActionEvent event) throws IOException {
         resetFields();
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -159,11 +237,12 @@ public class add_appt_ctlr implements Initializable {
         stage.show();
     }
 
-
+    /**
+     * Runs validation checks on the fields and against the business hours. If successful, it adds the appointment to the database and returns to the appointment screen, with the new appointment added.
+     */
     @FXML void clickSaveAppt(ActionEvent event) throws SQLException{
        if (checkCompletion()){
             if (checkLength()) {
-                // some try catch for the other values
                 try {
                     LocalDate apptStartDate = LocalDate.parse(startDate.getEditor().getText(), dateFormat);
                     LocalDate apptEndDate = LocalDate.parse(endDate.getEditor().getText(), dateFormat);
@@ -173,7 +252,6 @@ public class add_appt_ctlr implements Initializable {
                         int apptEndHr = Integer.parseInt(endHour.getEditor().getText());
                         int apptEndMin = Integer.parseInt(endMinute.getEditor().getText());
 
-                        // Make the date time stuff.
                         LocalDateTime userStartLDT = LocalDateTime.of(apptStartDate, LocalTime.of(apptStartHr, apptStartMin));
                         ZonedDateTime userStartZDT = ZonedDateTime.of(userStartLDT, TimeChecks.getLocalZoneId());
                         ZonedDateTime testUserStartEastern = userStartZDT.withZoneSameInstant(TimeChecks.getEastZoneId());
@@ -181,14 +259,9 @@ public class add_appt_ctlr implements Initializable {
                         LocalDateTime userEndLDT = LocalDateTime.of(apptEndDate, LocalTime.of(apptEndHr, apptEndMin));
                         ZonedDateTime userEndZDT = ZonedDateTime.of(userEndLDT, TimeChecks.getLocalZoneId());
                         ZonedDateTime testUserEndEastern = userEndZDT.withZoneSameInstant(TimeChecks.getEastZoneId());
-                        //TODO
-                        // All of these messages regarding the appointment time availabilities
-                        // need to be a popup message because those are important.
                         if (TimeChecks.checkStartingTime(testUserStartEastern)) {
                             if (TimeChecks.checkEndingTime(testUserStartEastern, testUserEndEastern)) {
-                                System.out.println("This appointment time is valid!");
                                 int custId = custField.getSelectionModel().getSelectedItem().getId();
-                                // Get all of the fields
                                 if ((TimeChecks.checkOverlap(userStartZDT, userEndZDT, custId))) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
                                     alert_ctlr.loadDialogStyle(alert);
@@ -223,7 +296,6 @@ public class add_appt_ctlr implements Initializable {
                                     }
                                 }
                             } else {
-                                System.out.println("This appointment end time is not within business hours!");
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert_ctlr.loadDialogStyle(alert);
                                 alert.setTitle("Error");
@@ -232,7 +304,6 @@ public class add_appt_ctlr implements Initializable {
                                 alert.showAndWait();
                             }
                         } else {
-                            //System.out.println("This appointment start time is not within business hours!");
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert_ctlr.loadDialogStyle(alert);
                             alert.setTitle("Error");
@@ -241,18 +312,21 @@ public class add_appt_ctlr implements Initializable {
                             alert.showAndWait();
                         }
                     } catch (NumberFormatException e) {
-                        e.printStackTrace();
                         startErrMsg.setText("Please ensure the time values are numerical.");
                         endErrMsg.setText("Please ensure the time values are numerical.");
                     }
                 } catch (Exception e) {
-                    // trying to see what errors are thrown exactly
-                    e.printStackTrace();
                     startErrMsg.setText("Please ensure date is correctly typed in.");
                 }
             }
         }
     }
+
+    /**
+     * Checks the field lengths on text field/area; used for input validation.
+     *
+     * @return the boolean on successful validation
+     */
     public boolean checkLength () {
         int titleLength = titleField.getLength();
         int locLength = locField.getLength();
@@ -282,6 +356,11 @@ public class add_appt_ctlr implements Initializable {
         }
     }
 
+    /**
+     * Check if the form fields have been filled out; used for input validation.
+     *
+     * @return the boolean on successful validation
+     */
     public boolean checkCompletion () {
         resetErrorMsg();
 
@@ -326,7 +405,6 @@ public class add_appt_ctlr implements Initializable {
                     startErrMsg.setText("Please enter a start date and time.");
                 }
             } catch (NullPointerException e) {
-                e.printStackTrace();
                 startDate.setBorder(errorStyle);
                 startHour.setBorder(errorStyle);
                 startMin.setBorder(errorStyle);
@@ -340,7 +418,6 @@ public class add_appt_ctlr implements Initializable {
                     endErrMsg.setText("Please enter an end date and time.");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 endDate.setBorder(errorStyle);
                 endHour.setBorder(errorStyle);
                 endMinute.setBorder(errorStyle);
@@ -352,6 +429,9 @@ public class add_appt_ctlr implements Initializable {
         }
     }
 
+    /**
+     * Resets the form fields.
+     */
     public void resetFields() {
         titleField.clear();
         locField.clear();
@@ -362,10 +442,6 @@ public class add_appt_ctlr implements Initializable {
         userField.getSelectionModel().select(null);
         startDate.getEditor().clear();
         endDate.getEditor().clear();
-        // If you want to do the get text with something that's not
-        // exactly a text field but has one (like datepicker/spinner) use:
-        // endDate.getEditor().getText()
-        // for the spinners we're going to get the value in the text field.
         startHour.getEditor().clear();
         startMin.getEditor().clear();
         endHour.getEditor().clear();
@@ -376,6 +452,9 @@ public class add_appt_ctlr implements Initializable {
         resetErrorMsg();
     }
 
+    /**
+     * Resets the errorStyle border on the fields, and removes the error message in the error labels.
+     */
     public void resetErrorMsg() {
         titleErrMsg.setText(null);
         locErrMsg.setText(null);

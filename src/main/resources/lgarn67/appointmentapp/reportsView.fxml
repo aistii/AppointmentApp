@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="858.0" maxWidth="1500.0" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.reports_ctlr">
+<AnchorPane maxHeight="858.0" maxWidth="1500.0" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" styleClass="anchorpane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lgarn67.appointmentapp.controller.reports_ctlr">
    <children>
       <AnchorPane fx:id="sidebar" prefHeight="700.0" prefWidth="132.0">
          <children>

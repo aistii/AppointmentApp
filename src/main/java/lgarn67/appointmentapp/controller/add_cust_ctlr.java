@@ -28,17 +28,29 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the add customer view.
+ */
 public class add_cust_ctlr implements Initializable {
 
-Stage stage;
-Parent scene;
+    /**
+     * The Stage/window.
+     */
+    Stage stage;
+    /**
+     * The Scene/view.
+     */
+    Parent scene;
 
+    /**
+     * Populates the country observable list and then populates the Country combo box with the observable list.
+     * First-level division combo box depends on the selection of the country, so it is not populated at first.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             CountryQuery.getAllCountries();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         CountryCombo.getItems().clear();
         CountryCombo.setItems(Working.getAllCountries());
@@ -46,41 +58,92 @@ Parent scene;
         FLDCombo.setPromptText("Please select a country first.");
     }
 
-    @FXML private Button SaveBtn;
-    @FXML private Button CancelBtn;
+    /**
+     * The customer name field.
+     */
     @FXML private TextField NameField;
+    /**
+     * The customer address field.
+     */
     @FXML private TextField AddrField;
+    /**
+     * The customer postal code field.
+     */
     @FXML private TextField PostField;
+    /**
+     * The customer phone number field.
+     */
     @FXML private TextField PhoneField;
+    /**
+     * The combo box for selecting customer's country.
+     */
     @FXML private ComboBox<Country> CountryCombo;
+    /**
+     * The combo box for selecting the customer's first-level division.
+     */
     @FXML private ComboBox<Division> FLDCombo;
+    /**
+     * The error message for the name field.
+     */
     @FXML private Label nameErr;
+    /**
+     * The error message for the postal code field.
+     */
     @FXML private Label PostErr;
+    /**
+     * The error message for the country combo box.
+     */
     @FXML private Label CtryErr;
+    /**
+     * The error message for the address field.
+     */
     @FXML private Label AddrErr;
+    /**
+     * The error message for the first-level division combo box.
+     */
     @FXML private Label FLDErr;
+    /**
+     * The error message for the phone number field.
+     */
     @FXML private Label PhoneErr;
 
+    /**
+     * The border style used to denote that a field has an error.
+     */
     Border errorStyle = new Border(new BorderStroke(Color.valueOf("#EF596F"), BorderStrokeStyle.SOLID, null, new BorderWidths(1)));
+    /**
+     * The "default" (errorless) style used on fields if errorStyle had been applied prior.
+     */
     Border clearStyle = new Border(new BorderStroke(new Color(0,0,0,0), BorderStrokeStyle.NONE, null, new BorderWidths(0)));
 
+    /**
+     * When the user makes a choice in the country combo box, it will fetch the list of first level divisions that belong to that country.
+     */
     @FXML void onCountrySelected() throws SQLException {
         FLDCombo.getItems().clear();
         try {
             int ctryId = CountryCombo.getSelectionModel().getSelectedItem().getId();
             passCountryId(ctryId);
         } catch (NullPointerException e) {
-            // Nothing will happen don't worry about it dawg
         }
 
         FLDCombo.setPromptText("Select first-level division...");
         FLDCombo.setItems(Working.getAllDivisions());
     }
 
+    /**
+     * Makes a call to the getAllRelatedDivisions method in the Division query class.
+     * It will populate the first-level divisions combo box.
+     *
+     * @param id the country id
+     */
     public void passCountryId(int id) throws SQLException{
         DivisionQuery.getAllRelatedDivisions(id);
     }
 
+    /**
+     * Exits the add customer function without saving.
+     */
     @FXML void ClickCancel(ActionEvent e) throws IOException {
         resetFields();
         stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
@@ -89,12 +152,11 @@ Parent scene;
         stage.show();
     }
 
-    // First it will check if checkCompletion() returns true. It will just be an "if" statement at the highest level.
-    // The number formatting should not be too much of an issue since most of these things are a string/can't be taken the wrong way
+    /**
+     * Runs validation checks on the fields. If successful, it adds the customer to the database.
+     * It then returns to the main customer screen and refreshes the table with the new customer added to the view.
+     */
     @FXML void ClickSaveCust(ActionEvent event) throws SQLException, IOException {
-        // Checks that fields are filled first;
-        // and then after that, the lengths of text field.
-        // It is nested though.. you will have to finish all fields first.
         if (checkCompletion()){
             if (checkLength()) {
                 String custName = NameField.getText();
@@ -113,9 +175,12 @@ Parent scene;
     }
 
 
+    /**
+     * Check if the form fields have been filled out; used for input validation.
+     *
+     * @return the boolean on successful validation
+     */
 
-    // This checks for completion so that no NullErrorPointer exception is thrown.
-    // That way, there is just parsing that needs to be done, and I can catch type errors.
     public boolean checkCompletion () {
 
         nameErr.setText(null);
@@ -131,7 +196,6 @@ Parent scene;
         CountryCombo.setBorder(clearStyle);
         FLDCombo.setBorder(clearStyle);
 
-        // Checks if ANY field is empty (which will return false), then will individually mark which ones are a problem.
         if (NameField.getText().isBlank() || AddrField.getText().isBlank() || PostField.getText().isBlank() ||
             PhoneField.getText().isBlank() || CountryCombo.getSelectionModel().isEmpty() || FLDCombo.getSelectionModel().isEmpty()){
             if (NameField.getText().isBlank()){
@@ -160,32 +224,21 @@ Parent scene;
             }
             return false;
         } else {
-            // if no fields are empty it will return true.
             return true;
         }
     }
-    //TODO
-    // Making a method to check the field lengths for the fields that will insert a
-    // VARCHAR value into the database.
-    // For Reference:
-    // 1) Customer Name maximum 50 chars
-    // 2) Address maximum 100
-    // 3) Phone maximum 50 chars
-    // 4) Postal Code max 50 char
 
+    /**
+     * Checks the field lengths on text fields; used for input validation.
+     *
+     * @return the boolean on successful validation
+     */
     public boolean checkLength() {
-        // Checks if length of any field is over maximum,
-        // then checks for specific field, similar to the check completion method.
-        // If method produces "false", the entry will not be saved.
-        int nameLength = NameField.getLength(); // (nameLength > 50)
-        int addrLength = AddrField.getLength(); // (addrLength > 100)
-        int phoneLength = PhoneField.getLength(); // (phoneLength > 50)
-        int postLength = PostField.getLength(); // (postLength > 50)
-        // this first checks if any are over the limit. even if only one is over the limit,
-        // it will not allow a save until the length is fixed.
+        int nameLength = NameField.getLength();
+        int addrLength = AddrField.getLength();
+        int phoneLength = PhoneField.getLength();
+        int postLength = PostField.getLength();
         if ((nameLength > 50)||(addrLength > 100)||(phoneLength > 50)||(postLength > 50)) {
-            // each one will do the error field highlight + write a message saying
-            // it's over the budget + tells how many chars there are.
             if (nameLength > 50){
                 NameField.setBorder(errorStyle);
                 nameErr.setText("Maximum 50 characters; currently has " + nameLength + " characters.");
@@ -208,7 +261,9 @@ Parent scene;
         }
     }
 
-    // Resets the error markings/messages and the fields themselves, a clean slate!
+    /**
+     * Resets the form fields.
+     */
     public void resetFields () {
         NameField.clear();
         AddrField.clear();

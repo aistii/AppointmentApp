@@ -8,13 +8,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for queries to create reports in the reports scene of the app.
+ */
 public class ReportsQuery {
+    /**
+     * Selects all of the appointments that are associated with a certain contact.
+     *
+     * @param contId the contact id
+     * @return the result set of associated appointments
+     */
     public static ResultSet qContactSchedule(int contId) throws SQLException {
         String query = " SELECT * FROM appointments WHERE (Contact_ID = ?) ORDER BY Start;" ;
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
         ps.setInt(1, contId);
         return ps.executeQuery();
     }
+
+    /**
+     * Counts the number of appointments per combination of the month the appointment is in and the appointment's type.
+     * It does not differentiate by year.
+     */
     public static void qMTCountRep() throws SQLException {
         String query = "SELECT MONTHNAME(appt.Start) as Appt_Month, appt.Type, COUNT(customers.Customer_ID) as appt_ct " +
                 "FROM appointments as appt " +
@@ -31,6 +45,11 @@ public class ReportsQuery {
             Working.addToMTRep(new MonthTypeReport(month, type, count));
         }
     }
+
+    /**
+     * Counts the number of customers that live within any first-level division that has 1 or more customer.
+     * It also provides the country that the first-level division is in.
+     */
     public static void qFLDCountRep() throws SQLException {
         String query = "SELECT countries.Country, fld.Division, COUNT(customers.Customer_ID) as customer_count " +
                 "FROM countries " +

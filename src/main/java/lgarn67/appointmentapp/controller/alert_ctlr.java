@@ -4,26 +4,37 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import lgarn67.appointmentapp.model.Working;
 import lgarn67.appointmentapp.helper.TimeChecks;
-import lgarn67.appointmentapp.dao.AppointmentQuery;
 
 import java.time.ZonedDateTime;
 
-// This is so I can style the alert dialogs because the default one doesn't match
-// the rest of the application. I am going to
+
+/**
+ * Controller for styling alerts in the app, as well as providing the login appointment alert and connecting to database error alert.
+ */
 public class alert_ctlr {
 
-    // app-wide method to set the alert dialog's css
+    /**
+     * Takes in the alert to be made and applies the CSS to it.
+     *
+     * @param alert the alert to be styled
+     */
     public static void loadDialogStyle(Alert alert) {
         DialogPane dia = alert.getDialogPane();
         dia.getStylesheets().add(alert_ctlr.class.getResource("/lgarn67/appointmentapp/styles.css").toString());
     }
 
-    // for the login alert for 15 minutes or less of appointment coming up.
+    /**
+     * Load login alert.
+     *
+     * @param success   whether or not there is an appointment coming up soon
+     * @param apptId    the appointment id of upcoming appointment
+     * @param startTime the start time of upcoming appointment
+     * @param endTime   the end time of upcoming appointment
+     */
     public static void loadLoginAlert (boolean success, int apptId, ZonedDateTime startTime, ZonedDateTime endTime) {
         if (success) {
             ZonedDateTime localizedStart = startTime.withZoneSameInstant(TimeChecks.getLocalZoneId());
             ZonedDateTime localizedEnd = endTime.withZoneSameInstant(TimeChecks.getLocalZoneId());
-            //System.out.println("appointment soon! id = "+apptId+ "| start time = " + startTime + " | end time = " +endTime);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             loadDialogStyle(alert);
             alert.setTitle("Welcome!");
@@ -34,7 +45,6 @@ public class alert_ctlr {
                     "End Time: " + localizedEnd.toLocalDateTime().format(TimeChecks.dtf));
             alert.showAndWait();
         } else {
-            //System.out.println("no appointments soon <3");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             loadDialogStyle(alert);
             alert.setTitle("Welcome!");
@@ -45,5 +55,15 @@ public class alert_ctlr {
         }
     }
 
-
+    /**
+     * Should there be an error connecting to the database, it will say that it couldn't connect to the database.
+     */
+    public static void errorConnecting() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        loadDialogStyle(alert);
+        alert.setTitle("Error Connecting to Database");
+        alert.setHeaderText("Error Connecting to Database");
+        alert.setContentText("Could not connect to database.");
+        alert.showAndWait();
+    }
 }

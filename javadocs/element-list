@@ -1,0 +1,6 @@
+module:lgarn67.appointmentapp
+lgarn67.appointmentapp
+lgarn67.appointmentapp.controller
+lgarn67.appointmentapp.dao
+lgarn67.appointmentapp.helper
+lgarn67.appointmentapp.model

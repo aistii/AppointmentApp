@@ -7,9 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for queries regarding the countries table in the database.
+ */
 public class CountryQuery {
 
-    // The getCountries() acts in a similar manner to the selectAll() method.
+    /**
+     * Selects all of the countries present in the countries table and adds them to Observable List in the Working class.
+     */
     public static void getAllCountries() throws SQLException {
         try {
             Working.resetCountries();
@@ -22,10 +27,15 @@ public class CountryQuery {
                 Working.addCountry(new Country(id, name));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
     }
 
+    /**
+     * Gets the country that the customer lives in via the customer's division ID.
+     *
+     * @param divId the customer's first-level division id
+     * @return the customer's country
+     */
     public static Country getCustCtry(int divId) throws SQLException {
         String query = "SELECT countries.Country_ID, countries.Country " +
                 "FROM first_level_divisions " +

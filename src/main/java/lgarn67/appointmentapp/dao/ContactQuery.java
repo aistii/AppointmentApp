@@ -7,10 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for queries regarding the contacts table in the database.
+ */
 public class ContactQuery {
-    // contact fetch returns the contact associated with the appointment on the appointment views.
+    /**
+     * Finds the contact associated with an appointment on the appointment table views.
+     *
+     * @param contactId the contact id
+     * @return the contact of the appointment
+     */
     public static Contact contactFetch (int contactId) throws SQLException {
-        Contact newCon;
         String query = "SELECT Contact_ID, Contact_Name FROM contacts WHERE (Contact_ID = ?);";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
         ps.setInt(1,contactId);
@@ -22,7 +29,10 @@ public class ContactQuery {
         return new Contact(contId, contName);
     }
 
-    // this one selects all contacts for the combobox
+    /**
+     * Runs a SELECT query on the contacts table in the database and then uses the data to populate the Observable List in the Working class.
+     * It is used to populate any combo boxes that hold contacts in them.
+     */
     public static void selectAllContacts() throws SQLException {
         String query = "SELECT Contact_ID, Contact_Name FROM contacts;";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);

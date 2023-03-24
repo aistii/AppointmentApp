@@ -7,9 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class for queries regarding the users table in the database.
+ */
 public class UserQuery {
 
-    // select all users is for populating the combo box
+    /**
+     * Selects all from the users table and adds them to the Observable List in the Working Class.
+     */
     public static void selectAllUsers() throws SQLException {
         String query = "SELECT User_ID, User_Name FROM users;";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
@@ -21,6 +26,12 @@ public class UserQuery {
         }
     }
 
+    /**
+     * Selects the user's name and ID.
+     *
+     * @param userId the user id
+     * @return the User object
+     */
     public static User userFetch (int userId) throws SQLException {
         String query = "SELECT User_ID, User_Name FROM users WHERE User_ID = ?;";
         PreparedStatement ps = dbconnection.connection.prepareStatement(query);
