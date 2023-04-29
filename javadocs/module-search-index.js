@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"lgarn67.appointmentapp"}];updateSearchResults();
