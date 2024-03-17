@@ -71,3 +71,8 @@ Date: 2023 March 23
 This report tallies the number of customers per first-level division, for all first-level divisions that have customers in them. 
 It includes three columns: the number of customers, the name of the first-level division, and the country that the first-level division is in. 
 By default, it is ordered by the division with the most customers to the one with the least.
+
+== NOTE TO VIEWERS ON GITHUB ==
+
+(2024/03/16)
+This repository does not include the database that the program communicates to, as it was material provided by the school. For this project, I downloaded the database and set it up locally on MySQL server.
